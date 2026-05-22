@@ -1,0 +1,1818 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Ammar Bharmal — Operator, Builder of Internal Systems</title>
+<meta name="description" content="Ammar Bharmal — AI-enabled startup operator. Toronto. Building internal systems, procurement workflows, and content automation." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,30..100,0..1&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+  /* ---------- TOKENS ---------- */
+  :root {
+    --bg: #f6f1e8;
+    --bg-2: #efe8da;
+    --paper: #fbf7ef;
+    --ink: #1c1a16;
+    --ink-2: #2c2823;
+    --ink-3: #56504a;
+    --ink-4: #8a847c;
+    --line: #d9d1bf;
+    --line-2: #e6dfcd;
+    --amber: #b56b1a;
+    --amber-2: #d18a3c;
+    --amber-soft: #f3e3c8;
+    --moss: #4a5a3a;
+
+    --maxw: 720px;
+    --gutter: clamp(20px, 5vw, 40px);
+
+    --serif: "Fraunces", "Times New Roman", serif;
+    --sans: "Manrope", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    --ease: cubic-bezier(.2,.6,.2,1);
+    --ease-out: cubic-bezier(.16,.84,.32,1);
+  }
+
+  /* ---------- RESET ---------- */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    background: var(--bg);
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    font-feature-settings: "ss01", "ss02", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain layer */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: -2px;
+    pointer-events: none;
+    z-index: 100;
+    opacity: .55;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.07  0 0 0 0 0.05  0 0 0 0.10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* Soft warm vignette */
+  body::after {
+    content:"";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99;
+    background:
+      radial-gradient(120% 80% at 50% -10%, rgba(255,233,196,.35), transparent 60%),
+      radial-gradient(80% 60% at 100% 110%, rgba(181,107,26,.05), transparent 70%);
+  }
+
+  ::selection { background: var(--amber); color: #fff; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- LAYOUT ---------- */
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ---------- TOP CHROME ---------- */
+  .progress {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 2px; z-index: 50;
+    background: transparent;
+  }
+  .progress > i {
+    display: block; height: 100%;
+    width: var(--p, 0%);
+    background: var(--amber);
+    transition: width 80ms linear;
+  }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 40;
+    background: color-mix(in oklab, var(--bg) 80%, transparent);
+    backdrop-filter: saturate(120%) blur(8px);
+    -webkit-backdrop-filter: saturate(120%) blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .25s var(--ease), background .25s var(--ease);
+  }
+  .topbar.scrolled {
+    border-bottom-color: var(--line-2);
+  }
+  .topbar-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+  }
+  .mark {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: -.01em;
+  }
+  .mark .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #4a8a5a;
+    box-shadow: 0 0 0 3px rgba(74,138,90,.18);
+    animation: pulse 2.6s var(--ease) infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 3px rgba(74,138,90,.18); }
+    50% { box-shadow: 0 0 0 6px rgba(74,138,90,.04); }
+  }
+  .nav { display: none; }
+  .nav a {
+    color: var(--ink-3);
+    font-size: 13px;
+    letter-spacing: .01em;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: color .2s var(--ease), background .2s var(--ease);
+  }
+  .nav a:hover { color: var(--ink); background: var(--line-2); }
+  .topbar-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px;
+    color: var(--ink-2);
+    border: 1px solid var(--line);
+    background: var(--paper);
+    padding: 7px 11px;
+    border-radius: 8px;
+    transition: all .2s var(--ease);
+  }
+  .topbar-cta:hover { border-color: var(--ink-3); transform: translateY(-1px); }
+  .topbar-cta .k {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-4);
+    border-left: 1px solid var(--line);
+    padding-left: 8px; margin-left: 4px;
+  }
+
+  @media (min-width: 760px) {
+    .nav { display: flex; gap: 4px; }
+  }
+
+  /* ---------- TYPOGRAPHY ---------- */
+  h1, h2, h3, h4 { margin: 0; font-weight: 400; }
+  .display {
+    font-family: var(--serif);
+    font-weight: 380;
+    font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 0;
+    letter-spacing: -.025em;
+    line-height: 1.02;
+  }
+  .h-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .h-eyebrow::before {
+    content: ""; width: 18px; height: 1px; background: var(--ink-4);
+    display: inline-block;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4.4vw, 38px);
+    font-weight: 380;
+    letter-spacing: -.02em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .section-title em {
+    font-style: italic;
+    font-variation-settings: "opsz" 14, "SOFT" 100, "WONK" 1;
+    color: var(--amber);
+  }
+  .lede {
+    font-family: var(--serif);
+    font-weight: 360;
+    font-size: clamp(20px, 2.4vw, 24px);
+    line-height: 1.4;
+    letter-spacing: -.012em;
+    color: var(--ink-2);
+    text-wrap: pretty;
+  }
+  p { text-wrap: pretty; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: clamp(56px, 14vh, 140px) 0 clamp(64px, 12vh, 120px);
+  }
+  .hero-meta {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+  .avail {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 5px 10px 5px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .avail .d {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4a8a5a;
+    box-shadow: 0 0 0 2px rgba(74,138,90,.18);
+  }
+  .place { font-size: 12px; color: var(--ink-4); letter-spacing: .01em; }
+  .place::before { content: "·"; margin-right: 8px; color: var(--line); }
+
+  .hero h1 {
+    font-size: clamp(44px, 9vw, 88px);
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-variation-settings: "opsz" 14, "SOFT" 100, "WONK" 1;
+    color: var(--amber);
+  }
+  .hero-sub {
+    margin-top: 28px;
+    max-width: 36ch;
+  }
+  .hero-actions {
+    margin-top: 36px;
+    display: flex; gap: 10px; flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    transition: all .2s var(--ease);
+    cursor: pointer;
+  }
+  .btn:hover { border-color: var(--ink-3); transform: translateY(-1px); }
+  .btn.primary {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+  .btn.primary:hover { background: var(--ink-2); }
+  .btn svg { width: 14px; height: 14px; }
+
+  .hero-rail {
+    margin-top: 56px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  @media (min-width: 560px) {
+    .hero-rail { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  }
+  .stat {
+    border-top: 1px solid var(--line-2);
+    padding-top: 14px;
+  }
+  .stat .n {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 380;
+    letter-spacing: -.02em;
+    color: var(--ink);
+    display: block;
+    line-height: 1;
+  }
+  .stat .l {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--ink-4);
+    letter-spacing: .01em;
+  }
+
+  /* ---------- SECTION ---------- */
+  section {
+    padding: clamp(64px, 10vh, 110px) 0;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+  }
+  .sec-head {
+    display: grid;
+    gap: 22px;
+    grid-template-columns: 1fr;
+    margin-bottom: 44px;
+  }
+  @media (min-width: 720px) {
+    .sec-head {
+      grid-template-columns: 140px 1fr;
+      gap: 40px;
+      align-items: baseline;
+    }
+  }
+  .sec-head .h-eyebrow { padding-top: 10px; }
+
+  /* ---------- ABOUT ---------- */
+  .prose p {
+    font-size: 16.5px;
+    line-height: 1.7;
+    color: var(--ink-2);
+    margin: 0 0 1.1em;
+    max-width: 60ch;
+  }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 420;
+    color: var(--ink);
+    font-variation-settings: "opsz" 14, "SOFT" 100, "WONK" 1;
+  }
+  .prose .pullquote {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 380;
+    line-height: 1.3;
+    letter-spacing: -.015em;
+    color: var(--ink);
+    padding: 18px 0 18px 22px;
+    border-left: 1px solid var(--amber);
+    margin: 28px 0;
+  }
+
+  /* ---------- EXPERIENCE ---------- */
+  .exp {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .role {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 28px 0;
+    border-top: 1px solid var(--line-2);
+    position: relative;
+  }
+  .role:first-child { border-top: 1px solid var(--ink-3); }
+  @media (min-width: 720px) {
+    .role {
+      grid-template-columns: 140px 1fr;
+      gap: 40px;
+      padding: 32px 0;
+    }
+  }
+  .role .when {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: .02em;
+    color: var(--ink-4);
+    line-height: 1.5;
+  }
+  .role .when .now {
+    display: inline-block;
+    color: #4a8a5a;
+    font-weight: 500;
+  }
+  .role h3 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 420;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .role h3 .at {
+    color: var(--ink-4);
+    font-style: italic;
+    font-weight: 360;
+  }
+  .role .where {
+    font-size: 13px;
+    color: var(--ink-4);
+    margin-top: 4px;
+  }
+  .role p.summary {
+    margin: 14px 0 16px;
+    color: var(--ink-2);
+    font-size: 15.5px;
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+  .bullets {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 10px;
+  }
+  .bullets li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 14.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+    max-width: 58ch;
+  }
+  .bullets li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 10px;
+    width: 10px; height: 1px;
+    background: var(--amber);
+  }
+  .bullets li b {
+    font-weight: 600;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .projects {
+    display: grid;
+    gap: 18px;
+  }
+  .project {
+    background: var(--paper);
+    border: 1px solid var(--line-2);
+    border-radius: 14px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+  }
+  .project:hover {
+    border-color: var(--line);
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px -28px rgba(28,26,22,.25);
+  }
+  .project-head {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+  }
+  .project-id {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-4);
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .project-status {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 8px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    background: var(--bg);
+  }
+  .project-status.live { color: #4a8a5a; }
+  .project-status.live::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #4a8a5a; }
+  .project-status.wip::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--amber-2); }
+  .project-status.research { color: #6b4a8a; }
+  .project-status.research::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #6b4a8a; }
+  .project h3 {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.6vw, 32px);
+    font-weight: 380;
+    letter-spacing: -.02em;
+    line-height: 1.05;
+    color: var(--ink);
+  }
+  .project .role-line {
+    font-size: 13px;
+    color: var(--ink-4);
+    margin-top: 6px;
+    letter-spacing: .005em;
+  }
+  .project .role-line em {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--ink-3);
+    font-weight: 420;
+  }
+  .project .desc {
+    margin: 18px 0 0;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-2);
+    max-width: 62ch;
+  }
+  .project-meta {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px dashed var(--line-2);
+    display: grid;
+    gap: 14px;
+  }
+  @media (min-width: 600px) {
+    .project-meta { grid-template-columns: 1fr 1fr; gap: 24px; }
+  }
+  .meta-block .ml {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-bottom: 8px;
+  }
+  .meta-block .mv {
+    font-size: 13.5px;
+    color: var(--ink-2);
+    line-height: 1.5;
+  }
+
+  /* tiny tag pills inside meta */
+  .tagrow {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .tag {
+    font-size: 11.5px;
+    padding: 3px 8px;
+    border: 1px solid var(--line-2);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--ink-3);
+  }
+
+  /* feature visualization */
+  .pv {
+    margin: 18px -22px 0;
+    padding: 22px;
+    background:
+      linear-gradient(180deg, transparent 0, var(--bg-2) 100%);
+    border-top: 1px solid var(--line-2);
+    border-bottom: 1px solid var(--line-2);
+    position: relative;
+  }
+  .pv-grid {
+    background-image:
+      linear-gradient(var(--line-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-2) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-position: -1px -1px;
+    opacity: .5;
+    position: absolute; inset: 0;
+    pointer-events: none;
+  }
+  .pv-inner { position: relative; }
+
+  /* QuoteStack viz: stack of quote rows */
+  .qs-stack {
+    display: grid; gap: 8px;
+  }
+  .qs-row {
+    display: grid;
+    grid-template-columns: 24px 1fr auto auto;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    background: var(--paper);
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    font-size: 13px;
+    transition: transform .35s var(--ease), border-color .25s var(--ease);
+  }
+  .qs-row:hover { transform: translateX(2px); border-color: var(--line); }
+  .qs-row .av {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--amber-soft);
+    color: var(--amber);
+    display: grid; place-items: center;
+    font-family: var(--serif);
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .qs-row .nm { color: var(--ink-2); font-size: 13px; }
+  .qs-row .pr {
+    font-family: var(--mono);
+    color: var(--ink);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+  }
+  .qs-row .st {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .qs-row.best {
+    border-color: var(--amber);
+    background: linear-gradient(180deg, var(--paper), #fff7e6);
+  }
+  .qs-row.best .st { color: var(--amber); }
+  .qs-row.best .pr { color: var(--amber); }
+
+  /* Rallio viz: recommendation receipt */
+  .rl-receipt {
+    background: var(--paper);
+    border: 1px solid var(--line-2);
+    border-radius: 10px;
+    padding: 16px 16px 14px;
+    position: relative;
+  }
+  .rl-receipt-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px dashed var(--line-2);
+  }
+  @media (min-width: 520px) {
+    .rl-receipt-head { grid-template-columns: 1fr auto; gap: 18px; align-items: center; }
+  }
+  .rl-stamp {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .rl-place {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 420;
+    letter-spacing: -.01em;
+    color: var(--ink);
+    margin-top: 4px;
+  }
+  .rl-hood {
+    color: var(--ink-4);
+    font-style: italic;
+    font-weight: 360;
+    font-size: 13px;
+  }
+  .rl-supporter {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .rl-av {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--amber-soft);
+    color: var(--amber);
+    display: grid; place-items: center;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 14px;
+  }
+  .rl-name {
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 500;
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .rl-badge {
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: #fff7e6;
+    font-weight: 500;
+  }
+  .rl-meta {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--ink-4);
+    margin-top: 2px;
+  }
+  .rl-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 18px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--line-2);
+  }
+  @media (min-width: 520px) {
+    .rl-stats { grid-template-columns: repeat(4, 1fr); }
+  }
+  .rl-stat {
+    display: flex; flex-direction: column;
+  }
+  .rl-sv {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 420;
+    color: var(--ink);
+    letter-spacing: -.02em;
+    line-height: 1;
+  }
+  .rl-sl {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-top: 6px;
+  }
+  .rl-trail {
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+    font-size: 12px;
+  }
+  .rl-trail-l {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    margin-right: 4px;
+  }
+  .rl-chip {
+    padding: 3px 9px;
+    background: var(--bg-2);
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    color: var(--ink-2);
+    font-size: 12px;
+  }
+  .rl-arrow { color: var(--amber); font-family: var(--mono); }
+
+  /* ScoutBot viz: orchestration log */
+  .sb-orch {
+    display: grid; gap: 10px;
+  }
+  .sb-lane {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    gap: 12px;
+    align-items: start;
+    background: var(--paper);
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .sb-lane-l {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+    padding-top: 3px;
+  }
+  .sb-lane-r {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .sb-pip {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #4a8a5a;
+    box-shadow: 0 0 0 2px rgba(74,138,90,.18);
+    display: inline-block;
+  }
+  .sb-pip.warn {
+    background: var(--amber-2);
+    box-shadow: 0 0 0 2px rgba(209,138,60,.18);
+    animation: pulse-warn 1.6s var(--ease) infinite;
+  }
+  @keyframes pulse-warn {
+    0%,100% { box-shadow: 0 0 0 2px rgba(209,138,60,.18); }
+    50% { box-shadow: 0 0 0 5px rgba(209,138,60,.04); }
+  }
+  .sb-name {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-3);
+    margin-right: 6px;
+  }
+  .sb-filter .sb-rule {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    padding: 3px 8px;
+    border: 1px solid var(--line-2);
+    border-radius: 6px;
+    background: var(--bg);
+    color: var(--ink-3);
+  }
+  .sb-route { display: grid; gap: 6px; flex-direction: column; align-items: stretch; }
+  .sb-event {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 10px;
+    align-items: baseline;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    padding: 4px 0;
+    border-top: 1px dashed var(--line-2);
+  }
+  .sb-event:first-child { border-top: 0; }
+  .sb-t { color: var(--ink-4); }
+  .sb-e { color: var(--ink-2); }
+  .sb-e em { color: var(--amber); font-style: normal; }
+  .sb-ok { color: #4a8a5a; }
+  .sb-ok::before { content: "✓ "; }
+  .sb-skip { color: var(--ink-4); }
+  .sb-skip::before { content: "— "; }
+
+  /* ---------- STACK ---------- */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  @media (min-width: 640px) {
+    .stack-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  }
+  .stack-block .sb-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    border-bottom: 1px solid var(--line-2);
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+  }
+  .stack-block h4 {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 420;
+    color: var(--ink);
+    letter-spacing: -.005em;
+  }
+  .stack-block .sb-n {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-4);
+  }
+  .stack-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; gap: 2px;
+  }
+  .stack-list li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line-2);
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .stack-list li:last-child { border-bottom: 0; }
+  .stack-list .lvl {
+    display: inline-flex; gap: 3px;
+  }
+  .stack-list .lvl i {
+    width: 5px; height: 14px; border-radius: 1px;
+    background: var(--line);
+  }
+  .stack-list .lvl i.on { background: var(--amber); }
+
+  /* ---------- THINKING ---------- */
+  .think {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 720px) {
+    .think { grid-template-columns: 1fr 1fr; gap: 18px; }
+  }
+  .principle {
+    background: var(--paper);
+    border: 1px solid var(--line-2);
+    border-radius: 12px;
+    padding: 22px;
+    transition: transform .3s var(--ease), border-color .3s var(--ease);
+  }
+  .principle:hover { transform: translateY(-2px); border-color: var(--line); }
+  .principle .num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--amber);
+    letter-spacing: .12em;
+  }
+  .principle h4 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 420;
+    letter-spacing: -.012em;
+    color: var(--ink);
+    margin: 10px 0 10px;
+    line-height: 1.2;
+  }
+  .principle p {
+    font-size: 14.5px;
+    color: var(--ink-3);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ---------- CONTACT ---------- */
+  .contact {
+    padding-bottom: clamp(64px, 10vh, 120px);
+  }
+  .contact-card {
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 18px;
+    padding: clamp(28px, 5vw, 44px);
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-card::before {
+    content:"";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 60% at 100% 0%, rgba(211,138,60,.18), transparent 60%),
+      radial-gradient(50% 50% at 0% 100%, rgba(181,107,26,.10), transparent 60%);
+    pointer-events: none;
+  }
+  .contact-card h2 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 5.4vw, 48px);
+    font-weight: 380;
+    letter-spacing: -.025em;
+    line-height: 1.05;
+    color: var(--paper);
+    position: relative;
+  }
+  .contact-card h2 em {
+    font-style: italic;
+    color: var(--amber-2);
+    font-variation-settings: "opsz" 14, "SOFT" 100, "WONK" 1;
+  }
+  .contact-card .ck {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #b6ad9e;
+    position: relative;
+  }
+  .contact-grid {
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+    position: relative;
+  }
+  .contact-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 1px solid rgba(255,255,255,.08);
+    transition: padding-left .25s var(--ease);
+  }
+  .contact-row:hover { padding-left: 10px; }
+  .contact-row:last-child { border-bottom: 1px solid rgba(255,255,255,.08); }
+  .contact-row .lk-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #8b8475;
+  }
+  .contact-row .lk-val {
+    font-family: var(--serif);
+    font-size: clamp(17px, 2vw, 20px);
+    font-weight: 380;
+    color: var(--paper);
+    letter-spacing: -.01em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .contact-row .lk-arrow {
+    color: var(--amber-2);
+    font-size: 14px;
+    transition: transform .25s var(--ease);
+  }
+  .contact-row:hover .lk-arrow { transform: translate(4px, -4px); }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px 0 60px;
+    border-top: 1px solid var(--line-2);
+  }
+  .foot {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-4);
+    letter-spacing: .04em;
+  }
+
+  /* ---------- REVEAL ---------- */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+    transition-delay: var(--d, 0ms);
+  }
+  [data-reveal].in {
+    opacity: 1; transform: none;
+  }
+
+  /* hero serial-letter motion */
+  .hero h1 .w {
+    display: inline-block;
+    white-space: nowrap;
+  }
+  .hero h1 .l {
+    display: inline-block;
+    opacity: 0; transform: translateY(28px);
+    animation: rise .9s var(--ease-out) forwards;
+    animation-delay: calc(var(--i) * 35ms + 120ms);
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: none; }
+  }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    [data-reveal] { opacity: 1; transform: none; }
+  }
+
+  /* command hint at bottom */
+  .keyhint {
+    position: fixed;
+    right: 18px; bottom: 18px;
+    z-index: 30;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    box-shadow: 0 10px 30px -18px rgba(28,26,22,.25);
+    display: none;
+    align-items: center; gap: 8px;
+  }
+  @media (min-width: 760px) {
+    .keyhint { display: inline-flex; }
+  }
+  .keyhint kbd {
+    font: inherit;
+    background: var(--bg);
+    border: 1px solid var(--line-2);
+    border-bottom-width: 2px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    color: var(--ink-2);
+  }
+
+  /* command palette */
+  .cmdk-back {
+    position: fixed; inset: 0; z-index: 60;
+    background: rgba(28,26,22,.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: none;
+    align-items: flex-start; justify-content: center;
+    padding-top: 12vh;
+  }
+  .cmdk-back.open { display: flex; }
+  .cmdk {
+    width: min(560px, 92vw);
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 30px 80px -20px rgba(28,26,22,.4);
+    overflow: hidden;
+    animation: pop .25s var(--ease-out);
+  }
+  @keyframes pop { from { transform: translateY(10px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .cmdk input {
+    width: 100%;
+    border: 0;
+    background: transparent;
+    padding: 16px 18px;
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--ink);
+    outline: none;
+  }
+  .cmdk input::placeholder { color: var(--ink-4); }
+  .cmdk hr { border: 0; border-top: 1px solid var(--line-2); margin: 0; }
+  .cmdk ul {
+    list-style: none; margin: 0; padding: 6px;
+    max-height: 50vh;
+    overflow: auto;
+  }
+  .cmdk li {
+    padding: 10px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    color: var(--ink-2);
+    font-size: 14px;
+    gap: 10px;
+  }
+  .cmdk li.active, .cmdk li:hover { background: var(--bg-2); color: var(--ink); }
+  .cmdk li .ic {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-4);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="progress" aria-hidden="true"><i id="prog"></i></div>
+
+<header class="topbar" id="topbar">
+  <div class="topbar-inner">
+    <a href="#top" class="mark"><span class="dot" aria-hidden="true"></span> Ammar Bharmal</a>
+    <nav class="nav" aria-label="Section navigation">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#stack">Stack</a>
+      <a href="#thinking">Thinking</a>
+    </nav>
+    <button class="topbar-cta" id="openCmd" aria-label="Open command menu">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
+      Quick nav
+      <span class="k">⌘K</span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero" style="border-top: 0">
+    <div class="wrap">
+      <div class="hero-meta" data-reveal>
+        <span class="avail"><span class="d" aria-hidden="true"></span> Available — Q3 2026</span>
+        <span class="place">Toronto · Remote-friendly</span>
+      </div>
+      <h1 class="display" aria-label="I build the systems that make small teams move like big ones.">
+        <span id="heroText"></span>
+      </h1>
+      <p class="lede hero-sub" data-reveal style="--d:600ms">
+        Startup operator who treats workflows like product. Three years inside SaaS, e-commerce, and procurement —
+        replacing manual coordination with AI-assisted systems that actually ship.
+      </p>
+      <div class="hero-actions" data-reveal style="--d:800ms">
+        <a class="btn primary" href="#projects">
+          See selected work
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3.5 8h9M9 4.5l3.5 3.5L9 11.5"/></svg>
+        </a>
+        <a class="btn" href="/cdn-cgi/l/email-protection#f49599999586da969c9586999598c7c4b49399959d98da979b99">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2.5" y="3.5" width="11" height="9" rx="1.5"/><path d="M3 4.5l5 4 5-4"/></svg>
+          Get in touch
+        </a>
+      </div>
+
+      <div class="hero-rail">
+        <div class="stat" data-reveal style="--d:900ms">
+          <span class="n">3<span style="color:var(--ink-4)">+</span></span>
+          <span class="l">Years operating inside fast-moving startups</span>
+        </div>
+        <div class="stat" data-reveal style="--d:1000ms">
+          <span class="n">200<span style="color:var(--ink-4)">/mo</span></span>
+          <span class="l">Work orders shipped under 95% SLA at ResQ</span>
+        </div>
+        <div class="stat" data-reveal style="--d:1100ms">
+          <span class="n">25%</span>
+          <span class="l">Average resolution time reduced through workflow redesign</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="h-eyebrow" data-reveal>01 — About</div>
+        <h2 class="section-title" data-reveal style="--d:80ms">
+          I don't think of myself as support, or ops, or eng. <em>I think of myself as the person who turns chaos into a system.</em>
+        </h2>
+      </div>
+      <div class="prose">
+        <p data-reveal>
+          I've spent the last three years embedded inside ResQ — a fast-moving SaaS in the repair and maintenance space —
+          coordinating between fifty-plus clients, twenty-plus vendors, and a product still finding its shape. The work is half customer obsession, half quiet engineering: noticing the same exception happen three times, then designing it out of existence.
+        </p>
+        <p data-reveal style="--d:80ms">
+          Somewhere along the way it stopped feeling like support. I was writing AI-assisted templates, sketching Retool dashboards over weekends, and shipping bulk-data workflows that quietly replaced hours of human reconciliation. The mental model that stuck: <em>operations is product, just for an internal audience.</em>
+        </p>
+        <blockquote class="pullquote" data-reveal>
+          The best operators I know don't fix tickets — they fix the conditions that produce them.
+        </blockquote>
+        <p data-reveal>
+          Now I build platforms in the same shape: <em>QuoteStack</em> for procurement, <em>Rallio</em> as local word-of-mouth infrastructure, and <em>ScoutBot-301</em> as a market-signal and decision-routing engine. The connective tissue is the same — <em>structured workflows, AI in the right places, humans in the rest.</em>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="h-eyebrow" data-reveal>02 — Experience</div>
+        <h2 class="section-title" data-reveal style="--d:80ms">
+          Five years operating inside customer-facing teams — <em>learning where systems break before they're built.</em>
+        </h2>
+      </div>
+
+      <div class="exp">
+
+        <article class="role" data-reveal>
+          <div class="when">
+            Feb 2023 — Jan 2026<br>
+            <span class="now">Most recent</span>
+          </div>
+          <div>
+            <h3>Support Specialist <span class="at">at ResQ</span></h3>
+            <div class="where">Toronto, Canada · SaaS for repair &amp; maintenance ops</div>
+            <p class="summary">
+              First point of contact for a national network of restaurant operators and trade vendors. Grew the role from ticket triage into informal workflow design — the place where messy human coordination got templated, automated, or quietly removed.
+            </p>
+            <ul class="bullets">
+              <li>Managed <b>200+ monthly work orders</b> via Kustomer and Slack at <b>95% SLA compliance</b>, cutting average resolution time by <b>25%</b>.</li>
+              <li>Brokered daily between <b>50+ clients</b> and <b>20+ vendors</b> — escalations, urgent closures, the awkward middles.</li>
+              <li>Published and negotiated <b>30+ vendor quotes weekly</b>; the friction I lived with became the seed for QuoteStack.</li>
+              <li>Shipped AI-assisted templates and lightweight automations that drafted vendor comms and case summaries — turning hours of writing into minutes of editing.</li>
+              <li>Executed high-volume operational changes — bulk uploads, account-level reconfigurations, batched work-order actions — with zero-tolerance accuracy.</li>
+              <li>Partnered with ops &amp; product to redesign internal workflows for scale, including changes that survived a leadership transition.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="role" data-reveal>
+          <div class="when">
+            Nov 2020 — Jun 2022
+          </div>
+          <div>
+            <h3>Technical Support Specialist <span class="at">at Concentrix</span></h3>
+            <div class="where">Peterborough, Canada · Enterprise tech support</div>
+            <p class="summary">
+              Trial by fire. Fifty conversations a day across hardware, software, and networking — the kind of volume that teaches you to triage on the first sentence and document so the next person doesn't have to re-learn what you did.
+            </p>
+            <ul class="bullets">
+              <li>Resolved <b>30+ tickets/day</b> with strong first-contact resolution; learned to debug in real time, on someone else's stack, over the phone.</li>
+              <li>Wrote documentation that other agents actually used — escalation quality and case continuity measurably improved.</li>
+              <li>Built calm under pressure. Most of what I know about customer empathy started here.</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="h-eyebrow" data-reveal>03 — Selected projects</div>
+        <h2 class="section-title" data-reveal style="--d:80ms">
+          Side projects are how I think. <em>Each one is a hypothesis about where AI replaces coordination — and where it shouldn't.</em>
+        </h2>
+      </div>
+
+      <div class="projects">
+
+        <!-- QUOTESTACK -->
+        <article class="project" data-reveal>
+          <div class="project-head">
+            <div>
+              <div class="project-id">PROJECT · 001</div>
+              <h3>QuoteStack</h3>
+              <div class="role-line"><em>Solo build · procurement workflow SaaS · 2025 →</em></div>
+            </div>
+            <span class="project-status live">In use</span>
+          </div>
+          <p class="desc">
+            Built from the same friction I lived inside at ResQ: thirty vendor quotes a week, three different inboxes, no shared view. QuoteStack centralizes quote intake, runs side-by-side comparison logic, and routes approvals — so the buyer's job is decision, not data entry.
+          </p>
+
+          <div class="pv">
+            <div class="pv-grid" aria-hidden="true"></div>
+            <div class="pv-inner">
+              <div class="qs-stack" aria-label="Quote comparison preview">
+                <div class="qs-row"><span class="av">N</span><span class="nm">Northbay Repairs</span><span class="pr">$2,840</span><span class="st">Submitted</span></div>
+                <div class="qs-row best"><span class="av">M</span><span class="nm">Maple Mechanical</span><span class="pr">$2,310</span><span class="st">Best fit</span></div>
+                <div class="qs-row"><span class="av">U</span><span class="nm">Urban Trades Co.</span><span class="pr">$2,950</span><span class="st">Awaiting</span></div>
+                <div class="qs-row"><span class="av">B</span><span class="nm">Brixton HVAC</span><span class="pr">$3,120</span><span class="st">Declined</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-meta">
+            <div class="meta-block">
+              <div class="ml">The problem</div>
+              <div class="mv">Quote collection lives in inboxes. Comparison happens in heads. Buyers default to whoever replied fastest, not whoever was best.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">The bet</div>
+              <div class="mv">A thin layer above email — structured intake, normalized fields, AI-assisted summaries — turns procurement from coordination into a one-screen decision.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">Architecture</div>
+              <div class="mv">Centralized quote intake · structured data flows · comparison logic · approval routing · AI-assisted drafting and summaries.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">Why it exists</div>
+              <div class="mv">Built out of the friction of publishing and negotiating 30+ vendor quotes a week. The product is the workflow I wish I'd had.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- RALLIO -->
+        <article class="project" data-reveal>
+          <div class="project-head">
+            <div>
+              <div class="project-id">PROJECT · 002</div>
+              <h3>Rallio</h3>
+              <div class="role-line"><em>Solo build · local word-of-mouth infrastructure</em></div>
+            </div>
+            <span class="project-status wip">In development</span>
+          </div>
+          <p class="desc">
+            A neighborhood-first recommendation system where the supporters who actually drive visits, attention, and momentum to local businesses get visible credit for it. Less a directory, more an attribution layer for the word-of-mouth that's been quietly powering small business forever — finally legible, finally accountable, finally not paid ads.
+          </p>
+
+          <div class="pv">
+            <div class="pv-grid" aria-hidden="true"></div>
+            <div class="pv-inner">
+              <div class="rl-receipt" aria-label="Recommendation receipt preview">
+                <div class="rl-receipt-head">
+                  <div class="rl-rh-left">
+                    <div class="rl-stamp">RECOMMENDATION RECEIPT · LP-04812</div>
+                    <div class="rl-place">Pomello Bakery <span class="rl-hood">· Little Portugal</span></div>
+                  </div>
+                  <div class="rl-supporter">
+                    <span class="rl-av">L</span>
+                    <div>
+                      <div class="rl-name">Lina M. <span class="rl-badge">Local · Top 1%</span></div>
+                      <div class="rl-meta">Supporter since Mar 2024</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="rl-stats">
+                  <div class="rl-stat"><span class="rl-sv">142</span><span class="rl-sl">clicks attributed</span></div>
+                  <div class="rl-stat"><span class="rl-sv">38</span><span class="rl-sl">verified visits</span></div>
+                  <div class="rl-stat"><span class="rl-sv">+11</span><span class="rl-sl">supporters joined</span></div>
+                  <div class="rl-stat"><span class="rl-sv">№4</span><span class="rl-sl">in neighborhood</span></div>
+                </div>
+                <div class="rl-trail">
+                  <span class="rl-trail-l">Attribution trail</span>
+                  <span class="rl-chip">Lina recommended</span>
+                  <span class="rl-arrow">→</span>
+                  <span class="rl-chip">Marco saved</span>
+                  <span class="rl-arrow">→</span>
+                  <span class="rl-chip">3 visits this week</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-meta">
+            <div class="meta-block">
+              <div class="ml">The problem</div>
+              <div class="mv">Local discovery has been captured by ad auctions and review-farming. Meanwhile the actual mechanism that moves people — a friend telling a friend — leaves no trail and earns no credit.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">The repositioning</div>
+              <div class="mv">Treat word-of-mouth as infrastructure: every recommendation generates a receipt, every click and visit ties back to a supporter, and the city's quiet curators finally have a public ledger.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">Architecture</div>
+              <div class="mv">Community-built business profiles · supporter identity &amp; status · neighborhood taste maps · click and visit attribution · recommendation receipts. Not a feed — a system.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">Positioning</div>
+              <div class="mv">Anti-paid-ad. Anti-influencer marketplace. Built on the premise that the next generation of local discovery is owned by neighborhoods, not advertisers.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SCOUTBOT-301 -->
+        <article class="project" data-reveal>
+          <div class="project-head">
+            <div>
+              <div class="project-id">PROJECT · 003</div>
+              <h3>ScoutBot-301</h3>
+              <div class="role-line"><em>Solo build · market-signal &amp; decision-routing system</em></div>
+            </div>
+            <span class="project-status research">Systems work</span>
+          </div>
+          <p class="desc">
+            A market-data orchestration and decision-routing engine designed around structured execution, failover reliability, and signal filtering. Ingests heterogeneous feeds, normalizes them into a single decision surface, and routes only the signals that pass configurable rule and reliability gates. The point isn't speed — it's <em>defensible decisions under operational pressure.</em>
+          </p>
+
+          <div class="pv">
+            <div class="pv-grid" aria-hidden="true"></div>
+            <div class="pv-inner">
+              <div class="sb-orch" aria-label="Orchestration log">
+                <div class="sb-lane">
+                  <div class="sb-lane-l">FEEDS</div>
+                  <div class="sb-lane-r">
+                    <span class="sb-pip live"></span><span class="sb-name">primary · ok</span>
+                    <span class="sb-pip live"></span><span class="sb-name">secondary · ok</span>
+                    <span class="sb-pip warn"></span><span class="sb-name">tertiary · degraded → failover</span>
+                  </div>
+                </div>
+                <div class="sb-lane">
+                  <div class="sb-lane-l">FILTER</div>
+                  <div class="sb-lane-r sb-filter">
+                    <span class="sb-rule">sentiment ≥ 0.62</span>
+                    <span class="sb-rule">volume Δ &gt; 1.8σ</span>
+                    <span class="sb-rule">cross-source confirm</span>
+                    <span class="sb-rule">cooldown 9m</span>
+                  </div>
+                </div>
+                <div class="sb-lane">
+                  <div class="sb-lane-l">ROUTE</div>
+                  <div class="sb-lane-r sb-route">
+                    <div class="sb-event"><span class="sb-t">14:02:11</span><span class="sb-e">signal <em>NQ-OPEN-08</em> · 3 sources confirm</span><span class="sb-ok">routed → action queue</span></div>
+                    <div class="sb-event"><span class="sb-t">14:02:46</span><span class="sb-e">signal <em>RX-PULSE-22</em> · 1 source · cooldown active</span><span class="sb-skip">suppressed</span></div>
+                    <div class="sb-event"><span class="sb-t">14:03:08</span><span class="sb-e">tertiary feed timeout · auto-failover engaged</span><span class="sb-ok">safe state</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-meta">
+            <div class="meta-block">
+              <div class="ml">The problem</div>
+              <div class="mv">Most signal engines optimize for capture and leave reliability as an afterthought. The hard part isn't ingest — it's deciding which signals deserve to leave the system.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">The bet</div>
+              <div class="mv">A decision-routing layer with explicit failover, cross-source confirmation, and configurable suppression turns noisy market data into something an operator can stake a decision on.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">Architecture</div>
+              <div class="mv">Structured execution graph · sentiment and rule-based filtering · multi-feed orchestration · failover and cooldown logic · operational safeguards as first-class primitives.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">Why it matters</div>
+              <div class="mv">Same operator's instinct that drives QuoteStack and Rallio — make the system legible, make the failure modes obvious, make the human in the loop sharper, not redundant.</div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK -->
+  <section id="stack">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="h-eyebrow" data-reveal>04 — Technical stack</div>
+        <h2 class="section-title" data-reveal style="--d:80ms">
+          Operator's toolbox. <em>The kit I actually reach for — not the kit I'd list to sound impressive.</em>
+        </h2>
+      </div>
+
+      <div class="stack-grid">
+
+        <div class="stack-block" data-reveal>
+          <div class="sb-head"><h4>Operations &amp; workflow systems</h4><span class="sb-n">·01</span></div>
+          <ul class="stack-list">
+            <li>AI-assisted operations <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Workflow automation <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Process optimization <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+            <li>Systems thinking <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Vendor coordination <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>SaaS support operations <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Internal tooling &amp; workflow design <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+          </ul>
+        </div>
+
+        <div class="stack-block" data-reveal style="--d:80ms">
+          <div class="sb-head"><h4>Tools &amp; platforms</h4><span class="sb-n">·02</span></div>
+          <ul class="stack-list">
+            <li>Kustomer <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Zendesk <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+            <li>Slack <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Retool <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+            <li>Linear <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Looker · Excel <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+            <li>Supabase · Railway · Vercel <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+          </ul>
+        </div>
+
+        <div class="stack-block" data-reveal style="--d:160ms">
+          <div class="sb-head"><h4>AI &amp; automation</h4><span class="sb-n">·03</span></div>
+          <ul class="stack-list">
+            <li>ChatGPT <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Claude <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Gemini <span class="lvl"><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+            <li>Prompt engineering <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>AI workflow design <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+            <li>API-based automations <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+            <li>Bulk operational workflows <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          </ul>
+        </div>
+
+        <div class="stack-block" data-reveal style="--d:240ms">
+          <div class="sb-head"><h4>Disposition</h4><span class="sb-n">·04</span></div>
+          <ul class="stack-list">
+            <li>Operational problem solving <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Startup operations <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Customer-facing execution <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>High-volume bulk data ops <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+            <li>SLA &amp; first-response discipline <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+            <li>Calm under operational load <span class="lvl"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- THINKING -->
+  <section id="thinking">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="h-eyebrow" data-reveal>05 — Product thinking</div>
+        <h2 class="section-title" data-reveal style="--d:80ms">
+          A short list of things I keep coming back to. <em>Less a manifesto, more a working set of priors.</em>
+        </h2>
+      </div>
+
+      <div class="think">
+
+        <div class="principle" data-reveal>
+          <div class="num">№ 01</div>
+          <h4>Operations is product, just for internal users.</h4>
+          <p>Every spreadsheet, Slack handoff, and copy-paste loop is a feature waiting to be built. The teams that internalize this ship twice — once for customers, once for themselves.</p>
+        </div>
+
+        <div class="principle" data-reveal style="--d:80ms">
+          <div class="num">№ 02</div>
+          <h4>Templates beat ticketing, until they don't.</h4>
+          <p>I'm bullish on AI-assisted templates and bearish on auto-reply. The right system writes the boring 80% and forces a human into the part that requires judgment. Anything else is just faster mediocrity.</p>
+        </div>
+
+        <div class="principle" data-reveal>
+          <div class="num">№ 03</div>
+          <h4>The best operators delete more than they add.</h4>
+          <p>Most internal pain isn't missing tools — it's tools nobody owns. The highest-leverage move is usually a deletion: a workflow retired, a Slack channel closed, a process collapsed into a single screen.</p>
+        </div>
+
+        <div class="principle" data-reveal style="--d:80ms">
+          <div class="num">№ 04</div>
+          <h4>Voice is a constraint, not a style.</h4>
+          <p>The interesting question with LLMs in writing isn't "can it sound like me?" — it's "what's the smallest set of rules that keeps me sounding like me?" Style guides as code. Voice as version-controlled artifact.</p>
+        </div>
+
+        <div class="principle" data-reveal>
+          <div class="num">№ 05</div>
+          <h4>Build the dashboard you wish existed.</h4>
+          <p>Retool, Linear, Supabase — the modern operator's toolkit means you don't need to wait for engineering to fix the thing slowing you down. If the friction outlasts a sprint, the answer is usually a weekend.</p>
+        </div>
+
+        <div class="principle" data-reveal style="--d:80ms">
+          <div class="num">№ 06</div>
+          <h4>Stay close to the customer.</h4>
+          <p>Three years of frontline support is the cheapest product education money can buy. I do not plan to ever fully step away from the inbox — even if the title changes.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="h-eyebrow" data-reveal>06 — Contact</div>
+        <h2 class="section-title" data-reveal style="--d:80ms">
+          Looking for the next thing. <em>If you're building inside ops, support, or AI-assisted internal tools — let's talk.</em>
+        </h2>
+      </div>
+
+      <div class="contact-card" data-reveal>
+        <div class="ck">Direct line</div>
+        <h2>Let's build the system <em>your team keeps meaning to build.</em></h2>
+
+        <div class="contact-grid">
+          <a class="contact-row" href="/cdn-cgi/l/email-protection#99f8f4f4f8ebb7fbf1f8ebf4f8f5aaa9d9fef4f8f0f5b7faf6f4">
+            <span class="lk-label">Email</span>
+            <span class="lk-val"><span class="__cf_email__" data-cfemail="98f9f5f5f9eab6faf0f9eaf5f9f4aba8d8fff5f9f1f4b6fbf7f5">[email&#160;protected]</span></span>
+            <span class="lk-arrow">↗</span>
+          </a>
+          <a class="contact-row" href="https://www.linkedin.com/in/ammar-bharmal-803b171a3/" target="_blank" rel="noopener">
+            <span class="lk-label">LinkedIn</span>
+            <span class="lk-val">linkedin.com/in/ammar-bharmal-803b171a3</span>
+            <span class="lk-arrow">↗</span>
+          </a>
+          <a class="contact-row" href="https://github.com/Ammar30113" target="_blank" rel="noopener">
+            <span class="lk-label">GitHub</span>
+            <span class="lk-val">github.com/Ammar30113</span>
+            <span class="lk-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot">
+      <span>© 2026 · Ammar Bharmal</span>
+      <span>Toronto · 43.65°N 79.38°W</span>
+      <span>Set in Fraunces &amp; Manrope</span>
+    </div>
+  </footer>
+
+</main>
+
+<div class="keyhint" aria-hidden="true">
+  <span>Quick nav</span>
+  <kbd>⌘</kbd><kbd>K</kbd>
+</div>
+
+<!-- Command palette -->
+<div class="cmdk-back" id="cmdkBack" role="dialog" aria-modal="true" aria-label="Quick navigation">
+  <div class="cmdk">
+    <input id="cmdkInput" type="text" placeholder="Jump to section, project, or contact…" autocomplete="off" />
+    <hr>
+    <ul id="cmdkList"></ul>
+  </div>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ---------- Hero letter rise ----------
+  (function () {
+    const target = document.getElementById('heroText');
+    const phrase = 'I build the systems that make small teams move like big ones.';
+    const italicPhrase = 'small teams';
+    const italicStart = phrase.indexOf(italicPhrase);
+    const italicEnd = italicStart + italicPhrase.length;
+
+    // Split into words but keep italic span unbroken
+    const words = phrase.split(' ');
+    let charIdx = 0;
+    let cursor = 0; // index into phrase
+    let html = '';
+    for (let w = 0; w < words.length; w++) {
+      const word = words[w];
+      const wordStart = cursor;
+      const wordEnd = cursor + word.length;
+      html += '<span class="w">';
+      for (let k = 0; k < word.length; k++) {
+        const ch = word[k];
+        const absoluteIdx = wordStart + k;
+        const inItalic = absoluteIdx >= italicStart && absoluteIdx < italicEnd;
+        const tag = inItalic ? 'em' : 'span';
+        html += '<' + tag + ' class="l" style="--i:' + charIdx + '">' + ch + '</' + tag + '>';
+        charIdx++;
+      }
+      html += '</span>';
+      // space between words (skip after last)
+      if (w < words.length - 1) {
+        html += '<span class="l" style="--i:' + charIdx + '">&nbsp;</span>';
+        charIdx++;
+      }
+      cursor = wordEnd + 1; // +1 for the space
+    }
+    target.innerHTML = html;
+  })();
+
+  // ---------- Reveal on scroll ----------
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('[data-reveal]').forEach(el => io.observe(el));
+
+  // ---------- Scroll progress + sticky shadow ----------
+  const prog = document.getElementById('prog');
+  const topbar = document.getElementById('topbar');
+  function onScroll() {
+    const sc = window.scrollY;
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    const p = h > 0 ? (sc / h) * 100 : 0;
+    prog.style.setProperty('--p', p.toFixed(2) + '%');
+    topbar.classList.toggle('scrolled', sc > 8);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ---------- Zip RL heatmap animation ----------
+  // (removed)
+
+  // ---------- Command palette ----------
+  (function () {
+    const items = [
+      { label: 'Hero — intro', hash: '#hero', tag: '01' },
+      { label: 'About — story', hash: '#about', tag: '02' },
+      { label: 'Experience — ResQ, Concentrix', hash: '#experience', tag: '03' },
+      { label: 'Projects — selected work', hash: '#projects', tag: '04' },
+      { label: 'QuoteStack — procurement workflow', hash: '#projects', tag: '04·a' },
+      { label: 'Rallio — local word-of-mouth infrastructure', hash: '#projects', tag: '04·b' },
+      { label: 'ScoutBot-301 — market-signal & decision routing', hash: '#projects', tag: '04·c' },
+      { label: 'Stack — tools & disposition', hash: '#stack', tag: '05' },
+      { label: 'Product thinking — principles', hash: '#thinking', tag: '06' },
+      { label: 'Contact — get in touch', hash: '#contact', tag: '07' },
+      { label: 'Email — ammar.bharmal30@gmail.com', hash: 'mailto:ammar.bharmal30@gmail.com', tag: '↗' },
+    ];
+    const back = document.getElementById('cmdkBack');
+    const input = document.getElementById('cmdkInput');
+    const list = document.getElementById('cmdkList');
+    let active = 0;
+
+    function render(filter = '') {
+      const f = filter.trim().toLowerCase();
+      const filtered = items.filter(i => !f || i.label.toLowerCase().includes(f));
+      list.innerHTML = '';
+      filtered.forEach((it, i) => {
+        const li = document.createElement('li');
+        li.className = i === active ? 'active' : '';
+        li.innerHTML = '<span>' + it.label + '</span><span class="ic">' + it.tag + '</span>';
+        li.addEventListener('click', () => go(it));
+        li.addEventListener('mouseenter', () => { active = i; render(input.value); });
+        list.appendChild(li);
+      });
+      if (active >= filtered.length) active = 0;
+      return filtered;
+    }
+    function go(it) {
+      close();
+      if (it.hash.startsWith('mailto:') || it.hash.startsWith('http')) {
+        window.location.href = it.hash;
+      } else {
+        const el = document.querySelector(it.hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', it.hash);
+      }
+    }
+    function open() {
+      back.classList.add('open');
+      input.value = '';
+      active = 0;
+      render();
+      setTimeout(() => input.focus(), 30);
+    }
+    function close() {
+      back.classList.remove('open');
+    }
+    document.getElementById('openCmd').addEventListener('click', open);
+    back.addEventListener('click', (e) => { if (e.target === back) close(); });
+    input.addEventListener('input', () => { active = 0; render(input.value); });
+    input.addEventListener('keydown', (e) => {
+      const filtered = render(input.value);
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, filtered.length - 1); render(input.value); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); render(input.value); }
+      else if (e.key === 'Enter') { e.preventDefault(); if (filtered[active]) go(filtered[active]); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        if (back.classList.contains('open')) close(); else open();
+      } else if (e.key === 'Escape' && back.classList.contains('open')) {
+        close();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
