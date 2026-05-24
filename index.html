@@ -757,6 +757,930 @@
   }
   .rl-arrow { color: var(--amber); font-family: var(--mono); }
 
+  /* ---------- LIVE PRODUCT MOCKUPS ---------- */
+  .mock-strip {
+    margin: 16px -22px 0;
+    padding: 22px 22px 20px;
+    background: linear-gradient(180deg, var(--bg-2) 0, var(--bg) 100%);
+    border-top: 1px solid var(--line-2);
+    position: relative;
+  }
+  .mock-strip-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .mock-strip-head .ml {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .mock-strip-head .ml b { color: var(--ink-2); font-weight: 500; }
+  .mock-strip-head .mr {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    color: var(--ink-4);
+  }
+  .mock-row {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mock-row::-webkit-scrollbar { height: 6px; }
+  .mock-row::-webkit-scrollbar-thumb { background: var(--line); border-radius: 3px; }
+  .mock-row::-webkit-scrollbar-track { background: transparent; }
+  .mock-cell {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+    display: flex; flex-direction: column;
+    gap: 10px;
+  }
+  .mock-caption {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: .08em;
+    color: var(--ink-4);
+    line-height: 1.45;
+  }
+  .mock-caption b {
+    color: var(--ink-3);
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 2px;
+    font-size: 10px;
+  }
+
+  /* Phone chrome */
+  .phone-frame {
+    width: 232px;
+    background: #050505;
+    border-radius: 30px;
+    padding: 7px;
+    box-shadow:
+      0 0 0 1px #1a1815,
+      0 28px 50px -32px rgba(28,26,22,.55),
+      inset 0 0 0 1px rgba(255,255,255,.04);
+  }
+  .phone-screen {
+    background: #0a0907;
+    border-radius: 24px;
+    height: 484px;
+    overflow: hidden;
+    position: relative;
+    font-family: var(--serif);
+    color: #f3eadc;
+  }
+  .phone-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 18px 4px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #f3eadc;
+    font-weight: 500;
+  }
+  .phone-bar-r { display: inline-flex; align-items: center; gap: 5px; }
+  .phone-bar-r .pbr-dots {
+    font-size: 7px; letter-spacing: 1px; opacity: .85;
+  }
+  .phone-bar-r .pbr-batt {
+    display: inline-block;
+    width: 15px; height: 8px;
+    border: 1px solid #f3eadc;
+    border-radius: 2px;
+    position: relative;
+    opacity: .85;
+  }
+  .phone-bar-r .pbr-batt::after {
+    content: ""; position: absolute;
+    inset: 1px; background: #f3eadc; border-radius: 1px;
+  }
+  .phone-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 6px 16px 10px;
+    font-family: var(--mono);
+    font-size: 9.5px;
+    letter-spacing: .04em;
+    color: #b9b1a4;
+  }
+  .phone-nav .on { color: #c5984a; }
+  .phone-content {
+    padding: 0 16px;
+    height: calc(100% - 100px);
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-tabs {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 12px 14px 14px;
+    background: linear-gradient(180deg, rgba(10,9,7,0), rgba(10,9,7,.92) 60%);
+    font-family: var(--mono);
+    font-size: 8.5px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #6b655c;
+  }
+  .phone-tabs span { text-align: center; }
+  .phone-tabs .on { color: #c5984a; }
+
+  /* Rallio mock — profile + receipt */
+  .rmk-id-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .rmk-avatar {
+    width: 38px; height: 38px; border-radius: 50%;
+    background: #c5984a;
+    color: #1c1612;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .rmk-name {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 480;
+    color: #f3eadc;
+    letter-spacing: -.01em;
+    line-height: 1.05;
+  }
+  .rmk-handle {
+    font-size: 9.5px;
+    color: #82796d;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .rmk-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 10.5px;
+    color: #8a8074;
+    margin-bottom: 14px;
+    line-height: 1.35;
+  }
+  .rmk-section-l {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .18em;
+    color: #5e564c;
+    margin-bottom: 7px;
+  }
+  .rmk-badges { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-bottom: 14px; }
+  .rmk-badge {
+    border: 1px solid #2a241d;
+    border-radius: 4px;
+    padding: 6px 5px;
+    font-size: 7.5px;
+    color: #f3eadc;
+    background: #0f0d0a;
+    position: relative;
+    line-height: 1.25;
+  }
+  .rmk-badge.founder { background: #f0d59d; color: #1c1612; border-color: #f0d59d; }
+  .rmk-badge.guide { border-color: #c5984a; }
+  .rmk-badge.champ { border-color: #6e9b7e; }
+  .rmk-badge .dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    display: inline-block; margin-bottom: 3px;
+  }
+  .rmk-badge.founder .dot { background: #1c1612; }
+  .rmk-badge.guide .dot { background: #c5984a; }
+  .rmk-badge.champ .dot { background: #6e9b7e; }
+  .rmk-badge .ttl { font-weight: 600; font-size: 8px; line-height: 1.1; }
+  .rmk-badge .sub { font-size: 6.5px; opacity: .75; margin-top: 2px; }
+  .rmk-badge.founder .sub { opacity: .6; }
+  .rmk-receipt {
+    background: #f3eadc;
+    color: #1c1612;
+    padding: 11px 11px 9px;
+    border-radius: 1px;
+    position: relative;
+    font-family: var(--mono);
+    font-size: 8px;
+    line-height: 1.4;
+  }
+  .rmk-receipt::before, .rmk-receipt::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 6px;
+    background-image:
+      linear-gradient(135deg, #0a0907 33%, transparent 33%),
+      linear-gradient(45deg, #0a0907 33%, transparent 33%);
+    background-size: 6px 6px;
+    background-position: 0 0, 0 0;
+  }
+  .rmk-receipt::before { top: -6px; transform: scaleY(-1); }
+  .rmk-receipt::after { bottom: -6px; }
+  .rmk-receipt-h {
+    text-align: center;
+    font-weight: 600;
+    font-size: 8.5px;
+    letter-spacing: .12em;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #1c1612;
+    margin-bottom: 6px;
+  }
+  .rmk-receipt-row {
+    display: flex; justify-content: space-between;
+    padding: 1.5px 0;
+  }
+  .rmk-receipt-row .l { color: #1c1612; }
+  .rmk-receipt-row .r { color: #1c1612; text-align: right; }
+  .rmk-receipt-total {
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dashed #1c1612;
+    display: flex; justify-content: space-between;
+    font-weight: 600;
+    font-size: 8px;
+  }
+  .rmk-receipt-earn {
+    margin-top: 4px;
+    color: #8a6519;
+    font-size: 7.5px;
+  }
+
+  /* Rallio mock — community-added cafe card */
+  .rmk-postbar {
+    background: #f3eadc;
+    margin: 0 -16px 12px;
+    padding: 8px 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .rmk-postbar .pb-av {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: #c5984a;
+    color: #1c1612;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 12px;
+    display: grid; place-items: center;
+  }
+  .rmk-postbar .pb-nm {
+    font-family: var(--serif);
+    font-size: 11.5px;
+    color: #1c1612;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .rmk-postbar .pb-loc {
+    font-size: 8.5px;
+    color: #6e655a;
+    margin-top: 1px;
+  }
+  .rmk-postbar .pb-more {
+    margin-left: auto;
+    color: #1c1612;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .rmk-cafe-tag {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(110,155,126,.18);
+    color: #8fb9a0;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: .14em;
+    margin-bottom: 10px;
+  }
+  .rmk-cafe-tag .dot { width: 4px; height: 4px; border-radius: 50%; background: #6e9b7e; }
+  .rmk-cafe-stack {
+    position: relative; margin-bottom: 14px;
+  }
+  .rmk-cafe-card {
+    background: #161310;
+    border-radius: 6px;
+    padding: 13px 14px 12px;
+    position: relative;
+    z-index: 2;
+  }
+  .rmk-cafe-card .nm {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    color: #f3eadc;
+    letter-spacing: -.01em;
+    line-height: 1;
+  }
+  .rmk-cafe-card .ad {
+    font-size: 8.5px;
+    color: #82796d;
+    margin-top: 4px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2a241d;
+  }
+  .rmk-cafe-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 10px 0 11px;
+  }
+  .rmk-cafe-stats .v {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: #c5984a;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .rmk-cafe-stats .l {
+    font-family: var(--mono);
+    font-size: 6.5px;
+    letter-spacing: .16em;
+    color: #6b655c;
+    margin-top: 3px;
+  }
+  .rmk-cta-pill {
+    display: flex; align-items: center; justify-content: space-between;
+    background: #c5984a;
+    color: #1c1612;
+    padding: 8px 12px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .rmk-cafe-shade {
+    position: absolute;
+    top: 6px; left: 6px; right: -6px; bottom: -6px;
+    background: #6e9b7e;
+    border-radius: 6px;
+    z-index: 1;
+  }
+  .rmk-postfoot {
+    display: flex; gap: 11px;
+    color: #f3eadc;
+    font-size: 13px;
+    margin-bottom: 6px;
+    opacity: .85;
+  }
+  .rmk-postcap {
+    font-size: 9.5px;
+    color: #b9b1a4;
+    line-height: 1.4;
+  }
+  .rmk-postcap b { color: #f3eadc; font-weight: 600; }
+
+  /* Rallio mock — claim flow */
+  .rmk-claim-h {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 500;
+    color: #f3eadc;
+    letter-spacing: -.015em;
+    line-height: 1.05;
+    margin: 4px 0 8px;
+  }
+  .rmk-claim-sub {
+    font-size: 10px;
+    color: #a39a8e;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .rmk-claim-sub b { color: #f3eadc; font-weight: 500; }
+  .rmk-claim-card {
+    border: 1px solid #2a241d;
+    background: #0f0d0a;
+    border-radius: 4px;
+    padding: 11px 12px 12px;
+  }
+  .rmk-claim-flag {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: #8fb9a0;
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: .14em;
+    margin-bottom: 9px;
+  }
+  .rmk-claim-flag .dot { width: 4px; height: 4px; border-radius: 50%; background: #6e9b7e; }
+  .rmk-claim-card .nm {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    color: #f3eadc;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .rmk-claim-card .ad {
+    font-size: 8.5px;
+    color: #82796d;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #2a241d;
+    margin-bottom: 10px;
+  }
+  .rmk-claim-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-bottom: 11px; }
+  .rmk-claim-stats .v {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: #c5984a;
+    font-weight: 500;
+    line-height: 1;
+  }
+  .rmk-claim-stats .l {
+    font-family: var(--mono);
+    font-size: 6px;
+    letter-spacing: .16em;
+    color: #6b655c;
+    margin-top: 3px;
+  }
+  .rmk-claim-q {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 10.5px;
+    color: #d9cfbe;
+    line-height: 1.35;
+    padding-top: 8px;
+    border-top: 1px solid #2a241d;
+  }
+  .rmk-claim-att {
+    font-size: 8px;
+    color: #6b655c;
+    margin-top: 5px;
+  }
+  .rmk-claim-btn {
+    margin: 22px 0 0;
+    background: #c5984a;
+    color: #1c1612;
+    text-align: center;
+    padding: 11px 0;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+  .rmk-claim-foot {
+    font-size: 8px;
+    color: #6b655c;
+    text-align: center;
+    margin-top: 7px;
+  }
+
+  /* Browser chrome */
+  .browser-frame {
+    width: 520px;
+    max-width: calc(100vw - 80px);
+    background: #0c1318;
+    border-radius: 12px;
+    box-shadow:
+      0 0 0 1px #16242e,
+      0 28px 50px -32px rgba(6,10,13,.55);
+    overflow: hidden;
+  }
+  .browser-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: #0a1015;
+    border-bottom: 1px solid #16242e;
+  }
+  .browser-dots { display: inline-flex; gap: 6px; }
+  .browser-dots span {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #2a3a45;
+  }
+  .browser-url {
+    flex: 1;
+    background: #060a0d;
+    border: 1px solid #16242e;
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #6b7d8a;
+    text-align: center;
+    letter-spacing: .02em;
+  }
+  .browser-url .lock { color: #34d399; margin-right: 6px; font-size: 9px; }
+  .browser-screen {
+    background: #060a0d;
+    color: #e8edf0;
+    font-family: var(--sans, "Inter", -apple-system, system-ui, sans-serif);
+    min-height: 360px;
+    position: relative;
+  }
+
+  /* QuoteStack mock — marketing hero */
+  .qmk-topnav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 16px;
+    border-bottom: 1px solid #16242e;
+    font-size: 9.5px;
+    color: #8b9aa6;
+  }
+  .qmk-topnav .logo {
+    display: inline-flex; align-items: center; gap: 5px;
+    color: #e8edf0; font-weight: 600;
+  }
+  .qmk-topnav .logo::before {
+    content: ""; width: 12px; height: 12px;
+    background: linear-gradient(135deg, #34d399, #10b981);
+    border-radius: 3px;
+  }
+  .qmk-topnav .links { display: flex; gap: 12px; }
+  .qmk-topnav .cta {
+    background: #34d399; color: #052e1f;
+    padding: 4px 9px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 9px;
+  }
+  .qmk-hero {
+    padding: 20px 22px 22px;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 20%, rgba(52,211,153,.10), transparent 60%),
+      radial-gradient(ellipse 60% 80% at 100% 100%, rgba(52,211,153,.08), transparent 60%),
+      #060a0d;
+    border-bottom: 1px solid #16242e;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 18px;
+    align-items: start;
+  }
+  .qmk-eyebrow {
+    font-family: var(--mono);
+    font-size: 8.5px;
+    color: #34d399;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .qmk-hero h4 {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 480;
+    line-height: 1.12;
+    letter-spacing: -.015em;
+    margin: 0 0 10px;
+    color: #f3f6f8;
+  }
+  .qmk-hero-body {
+    font-size: 9.5px;
+    color: #8b9aa6;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .qmk-hero-cta { display: flex; gap: 7px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+  .qmk-btn {
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-size: 9px;
+    font-weight: 600;
+    font-family: inherit;
+  }
+  .qmk-btn.primary { background: #34d399; color: #052e1f; }
+  .qmk-btn.ghost { color: #e8edf0; border: 1px solid #2a3a45; background: transparent; }
+  .qmk-btn.link { color: #e8edf0; }
+  .qmk-hero-pills { display: flex; flex-wrap: wrap; gap: 5px; font-family: var(--mono); font-size: 7.5px; color: #6b7d8a; letter-spacing: .1em; }
+  .qmk-hero-pills span {
+    padding: 2px 7px;
+    border: 1px solid #1a2731;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+  .qmk-best {
+    background: #0a1217;
+    border: 1px solid #1a2731;
+    border-radius: 7px;
+    padding: 11px 11px 10px;
+    box-shadow: 0 12px 24px -16px rgba(0,0,0,.6);
+  }
+  .qmk-best-h {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono);
+    font-size: 7.5px;
+    color: #6b7d8a;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    padding-bottom: 7px;
+    border-bottom: 1px solid #1a2731;
+    margin-bottom: 7px;
+  }
+  .qmk-best-h .v { color: #8b9aa6; }
+  .qmk-best-row {
+    display: grid; grid-template-columns: 1fr auto auto;
+    gap: 6px;
+    align-items: center;
+    padding: 5px 0;
+    font-size: 9px;
+    color: #c5cdd4;
+    border-bottom: 1px dashed #1a2731;
+  }
+  .qmk-best-row:last-child { border-bottom: none; }
+  .qmk-best-row .pr { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .qmk-best-row .ld { font-family: var(--mono); font-size: 8px; color: #6b7d8a; }
+  .qmk-best-row.win {
+    background: rgba(52,211,153,.07);
+    margin: 0 -7px;
+    padding: 6px 7px;
+    border-radius: 4px;
+    border-bottom: 1px solid transparent;
+    color: #e8edf0;
+  }
+  .qmk-best-row.win .pr { color: #34d399; }
+  .qmk-best-row .check { color: #34d399; font-weight: 700; }
+  .qmk-best-note {
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px solid #1a2731;
+    font-size: 7.5px;
+    color: #8b9aa6;
+    line-height: 1.45;
+  }
+  .qmk-best-note b { color: #34d399; font-weight: 500; }
+
+  /* QuoteStack mock — deals dashboard */
+  .qmk-app {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    min-height: 360px;
+  }
+  .qmk-side {
+    background: #080e12;
+    border-right: 1px solid #16242e;
+    padding: 14px 11px;
+  }
+  .qmk-side .ws {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    color: #4f6371;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .qmk-side .nav-i {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 5px 7px;
+    border-radius: 4px;
+    font-size: 9.5px;
+    color: #8b9aa6;
+    margin-bottom: 2px;
+  }
+  .qmk-side .nav-i.on { background: #0e1922; color: #e8edf0; }
+  .qmk-side .nav-i .ct {
+    font-family: var(--mono); font-size: 8px;
+    background: #16242e; color: #6b7d8a;
+    padding: 1px 5px; border-radius: 3px;
+  }
+  .qmk-side .nav-i.on .ct { background: rgba(52,211,153,.18); color: #34d399; }
+  .qmk-side .trial {
+    margin-top: 16px;
+    padding: 9px 8px;
+    border: 1px solid #1a2731;
+    border-radius: 5px;
+    background: #0a1217;
+  }
+  .qmk-side .trial .l {
+    font-family: var(--mono);
+    font-size: 7px;
+    color: #6b7d8a;
+    letter-spacing: .14em;
+    margin-bottom: 3px;
+  }
+  .qmk-side .trial .v {
+    font-family: var(--serif);
+    font-size: 13px;
+    color: #e8edf0;
+    margin-bottom: 3px;
+  }
+  .qmk-side .trial .sub { font-size: 7px; color: #6b7d8a; margin-bottom: 7px; }
+  .qmk-side .trial .upg {
+    background: #34d399; color: #052e1f;
+    text-align: center;
+    padding: 4px 0;
+    border-radius: 3px;
+    font-size: 8.5px;
+    font-weight: 600;
+  }
+  .qmk-main { padding: 14px 16px; min-width: 0; }
+  .qmk-main-h {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .qmk-main-h h4 {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 500;
+    color: #f3f6f8;
+    margin: 0;
+    letter-spacing: -.01em;
+  }
+  .qmk-main-h h4 + .sub { font-size: 8px; color: #6b7d8a; margin-top: 1px; letter-spacing: 0; }
+  .qmk-main-h .actions { display: flex; gap: 6px; align-items: center; }
+  .qmk-pill {
+    font-size: 8px; font-family: var(--mono);
+    padding: 3px 7px;
+    border: 1px solid #1a2731;
+    border-radius: 4px;
+    color: #8b9aa6;
+    letter-spacing: .04em;
+  }
+  .qmk-pill.solid { background: #34d399; color: #052e1f; border-color: #34d399; font-weight: 600; }
+  .qmk-tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-bottom: 12px; }
+  .qmk-tile {
+    background: #0a1217;
+    border: 1px solid #16242e;
+    border-radius: 5px;
+    padding: 7px 8px 8px;
+  }
+  .qmk-tile .l {
+    font-family: var(--mono);
+    font-size: 7px;
+    color: #6b7d8a;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .qmk-tile .v {
+    font-family: var(--serif);
+    font-size: 15px;
+    color: #f3f6f8;
+    line-height: 1;
+    font-weight: 500;
+  }
+  .qmk-tile .v .u { font-size: 9px; color: #8b9aa6; margin-left: 1px; }
+  .qmk-tile .d {
+    font-family: var(--mono);
+    font-size: 7px;
+    color: #34d399;
+    margin-top: 3px;
+  }
+  .qmk-tile .d.warn { color: #f0a575; }
+  .qmk-tabs {
+    display: flex; gap: 4px;
+    border-bottom: 1px solid #16242e;
+    margin-bottom: 6px;
+    font-family: var(--mono);
+    font-size: 8.5px;
+    color: #6b7d8a;
+    letter-spacing: .06em;
+  }
+  .qmk-tabs span {
+    padding: 5px 8px;
+    border-bottom: 1.5px solid transparent;
+    margin-bottom: -1px;
+  }
+  .qmk-tabs span.on { color: #e8edf0; border-color: #34d399; }
+  .qmk-tabs span .ct { color: #6b7d8a; }
+  .qmk-table { font-size: 9px; }
+  .qmk-table-h {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 0.7fr 0.6fr 0.7fr;
+    gap: 8px;
+    padding: 7px 4px;
+    font-family: var(--mono);
+    font-size: 7px;
+    color: #6b7d8a;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+  }
+  .qmk-tr {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 0.7fr 0.6fr 0.7fr;
+    gap: 8px;
+    padding: 7px 4px;
+    border-top: 1px solid #16242e;
+    align-items: center;
+    color: #c5cdd4;
+  }
+  .qmk-tr .deal { color: #e8edf0; }
+  .qmk-tr .deal .sub { color: #6b7d8a; font-family: var(--mono); font-size: 7px; margin-top: 1px; letter-spacing: .04em; }
+  .qmk-tr .price { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+  .qmk-tr .lt { font-family: var(--mono); color: #8b9aa6; }
+  .qmk-tr .dots { color: #4f6371; }
+  .qmk-stage {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    padding: 2.5px 7px;
+    border-radius: 999px;
+    text-align: center;
+    letter-spacing: .04em;
+    display: inline-block;
+  }
+  .qmk-stage.approved { background: rgba(52,211,153,.16); color: #34d399; }
+  .qmk-stage.awarded { background: rgba(110,155,126,.12); color: #8fb9a0; }
+  .qmk-stage.collect { background: rgba(180,160,80,.12); color: #d6c08a; }
+  .qmk-stage.review { background: rgba(80,150,200,.12); color: #8ec0e0; }
+
+  /* QuoteStack mock — approval moment */
+  .qmk-app-h {
+    padding: 12px 16px 14px;
+    border-bottom: 1px solid #16242e;
+  }
+  .qmk-app-h .eyebrow {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    color: #6b7d8a;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .qmk-app-h .title {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px;
+  }
+  .qmk-app-h h4 {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 500;
+    color: #f3f6f8;
+    margin: 0;
+    letter-spacing: -.01em;
+  }
+  .qmk-app-h .ctrl { display: flex; gap: 6px; }
+  .qmk-app-h .qmk-btn { font-size: 8px; padding: 4px 8px; }
+  .qmk-app-h .qmk-btn.reject { background: transparent; color: #f0a5b8; border: 1px solid #2a1a22; }
+  .qmk-app-h .qmk-btn.req { background: transparent; color: #e8edf0; border: 1px solid #2a3a45; }
+  .qmk-app-body { padding: 14px 16px 18px; }
+  .qmk-app-body .ctx {
+    font-size: 9px;
+    color: #8b9aa6;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .qmk-app-body .ctx b { color: #e8edf0; font-weight: 500; }
+  .qmk-quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 14px; }
+  .qmk-quote {
+    background: #0a1217;
+    border: 1px solid #16242e;
+    border-radius: 6px;
+    padding: 9px 9px 10px;
+  }
+  .qmk-quote.win { border-color: rgba(52,211,153,.45); }
+  .qmk-quote-h {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 7px;
+    gap: 5px;
+  }
+  .qmk-quote .sn {
+    font-family: var(--serif);
+    font-size: 12px;
+    font-weight: 500;
+    color: #f3f6f8;
+  }
+  .qmk-quote .tag {
+    font-family: var(--mono);
+    font-size: 6.5px;
+    letter-spacing: .12em;
+    color: #6b7d8a;
+    text-transform: uppercase;
+  }
+  .qmk-quote.win .tag { color: #34d399; }
+  .qmk-quote-row {
+    display: flex; justify-content: space-between;
+    font-size: 8px;
+    padding: 3px 0;
+    color: #8b9aa6;
+    border-top: 1px dashed #16242e;
+  }
+  .qmk-quote-row .l { font-family: var(--mono); letter-spacing: .04em; }
+  .qmk-quote-row .r { font-family: var(--mono); color: #e8edf0; font-variant-numeric: tabular-nums; }
+  .qmk-quote.win .qmk-quote-row .r.pr { color: #34d399; }
+  .qmk-quote-sub {
+    font-size: 7px;
+    color: #4f6371;
+    font-family: var(--mono);
+    letter-spacing: .04em;
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px solid #16242e;
+  }
+  .qmk-note {
+    background: #0a1217;
+    border: 1px solid #16242e;
+    border-radius: 6px;
+    padding: 9px 11px;
+  }
+  .qmk-note .l {
+    font-family: var(--mono);
+    font-size: 7px;
+    color: #6b7d8a;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .qmk-note .body {
+    font-size: 9px;
+    color: #c5cdd4;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 520px) {
+    .browser-frame { width: 380px; }
+    .qmk-hero { grid-template-columns: 1fr; }
+    .qmk-best { order: -1; }
+    .qmk-tiles { grid-template-columns: repeat(2, 1fr); }
+    .qmk-app { grid-template-columns: 1fr; }
+    .qmk-side { display: none; }
+  }
+
   /* ScoutBot viz: orchestration log */
   .sb-orch {
     display: grid; gap: 10px;
@@ -1336,6 +2260,168 @@
             </div>
           </div>
 
+          <div class="mock-strip" aria-label="QuoteStack live product screens">
+            <div class="mock-strip-head">
+              <div class="ml"><b>Live product</b> · 3 screens</div>
+              <div class="mr">quotestack.app</div>
+            </div>
+            <div class="mock-row">
+
+              <div class="mock-cell">
+                <div class="browser-frame">
+                  <div class="browser-bar">
+                    <span class="browser-dots"><span></span><span></span><span></span></span>
+                    <div class="browser-url"><span class="lock">●</span>quotestack.app</div>
+                  </div>
+                  <div class="browser-screen">
+                    <div class="qmk-topnav">
+                      <span class="logo">QuoteStack</span>
+                      <span class="links"><span>Why</span><span>How it works</span><span>Pricing</span><span>Customers</span></span>
+                      <span class="cta">Start free trial</span>
+                    </div>
+                    <div class="qmk-hero">
+                      <div>
+                        <div class="qmk-eyebrow">Procurement intelligence</div>
+                        <h4>Compare supplier quotes, document tradeoffs, and move procurement approvals forward in one workflow.</h4>
+                        <div class="qmk-hero-body">Centralize quotes at the deal level so teams identify the best option faster — without the spreadsheet juggling, missed currencies, or lost emails.</div>
+                        <div class="qmk-hero-cta">
+                          <span class="qmk-btn primary">Start free trial</span>
+                          <span class="qmk-btn ghost">See live demo</span>
+                          <span class="qmk-btn link">See workflow →</span>
+                        </div>
+                        <div class="qmk-hero-pills"><span>Construction</span><span>Manufacturing</span><span>Pro services</span><span>Mid-market</span></div>
+                      </div>
+                      <div class="qmk-best">
+                        <div class="qmk-best-h"><span>Best value supplier</span><span class="v">Steel beams · Q3</span></div>
+                        <div class="qmk-best-row win"><span><span class="check">✓</span> Nimbus Metals</span><span class="pr">$18,200</span><span class="ld">12d</span></div>
+                        <div class="qmk-best-row"><span>Forge &amp; Hammer</span><span class="pr">$17,560</span><span class="ld">21d</span></div>
+                        <div class="qmk-best-row"><span>SteelCraft Co.</span><span class="pr">$20,800</span><span class="ld">9d</span></div>
+                        <div class="qmk-best-row"><span>Heliotrope Forge</span><span class="pr">$19,720</span><span class="ld">14d</span></div>
+                        <div class="qmk-best-note"><b>Why Nimbus:</b> balances $18,200 with a 12-day lead time and standard payment terms. 3% above lowest bid, 9 days faster.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>01 · Marketing page</b>Headline plus a live "best value" card — the hero shows the decision, not just the pitch.</div>
+              </div>
+
+              <div class="mock-cell">
+                <div class="browser-frame">
+                  <div class="browser-bar">
+                    <span class="browser-dots"><span></span><span></span><span></span></span>
+                    <div class="browser-url"><span class="lock">●</span>app.quotestack.com/deals</div>
+                  </div>
+                  <div class="browser-screen">
+                    <div class="qmk-app">
+                      <aside class="qmk-side">
+                        <div class="ws">Workspace</div>
+                        <div class="nav-i"><span>Dashboard</span></div>
+                        <div class="nav-i on"><span>Deals</span><span class="ct">12</span></div>
+                        <div class="nav-i"><span>Suppliers</span><span class="ct">16</span></div>
+                        <div class="nav-i"><span>Approvals</span><span class="ct">3</span></div>
+                        <div class="nav-i"><span>Settings</span></div>
+                        <div class="trial">
+                          <div class="l">Trial · 11 days left</div>
+                          <div class="v">Atlas Building Supply</div>
+                          <div class="sub">4 of 10 seats</div>
+                          <div class="upg">Upgrade plan</div>
+                        </div>
+                      </aside>
+                      <div class="qmk-main">
+                        <div class="qmk-main-h">
+                          <div>
+                            <h4>All deals</h4>
+                            <div class="sub">12 active · 3 awaiting approval · 2 awarded this week</div>
+                          </div>
+                          <div class="actions">
+                            <span class="qmk-pill">Filters · 2</span>
+                            <span class="qmk-pill">Import CSV</span>
+                            <span class="qmk-pill solid">+ New deal</span>
+                          </div>
+                        </div>
+                        <div class="qmk-tiles">
+                          <div class="qmk-tile"><div class="l">Open deals</div><div class="v">12</div><div class="d">+3 this week</div></div>
+                          <div class="qmk-tile"><div class="l">Avg savings</div><div class="v">14.2<span class="u">%</span></div><div class="d">vs spreadsheet</div></div>
+                          <div class="qmk-tile"><div class="l">Time to award</div><div class="v">3.4<span class="u">d</span></div><div class="d warn">+0.6d</div></div>
+                          <div class="qmk-tile"><div class="l">Approval cycle</div><div class="v">94<span class="u">%</span></div><div class="d">on time</div></div>
+                        </div>
+                        <div class="qmk-tabs">
+                          <span class="on">All deals <span class="ct">· 12</span></span>
+                          <span>Awaiting <span class="ct">· 4</span></span>
+                          <span>Drafts <span class="ct">· 2</span></span>
+                          <span>Awarded <span class="ct">· 4</span></span>
+                        </div>
+                        <div class="qmk-table">
+                          <div class="qmk-table-h"><span>Deal</span><span>Best value</span><span>Total</span><span>Lead</span><span>Stage</span></div>
+                          <div class="qmk-tr"><span class="deal">Steel beams · Q3<div class="sub">Construction · 4 quotes</div></span><span>Nimbus Metals</span><span class="price">$18,200</span><span class="lt">12d</span><span><span class="qmk-stage approved">Approve</span></span></div>
+                          <div class="qmk-tr"><span class="deal">Office relocation freight<div class="sub">Logistics · 6 quotes</div></span><span>Nimbus Metals</span><span class="price">$4,860</span><span class="lt">6d</span><span><span class="qmk-stage awarded">Awarded</span></span></div>
+                          <div class="qmk-tr"><span class="deal">Q3 marketing print run<div class="sub">Marketing · 3 quotes</div></span><span class="dots">—</span><span class="dots">—</span><span class="dots">—</span><span><span class="qmk-stage collect">Collecting</span></span></div>
+                          <div class="qmk-tr"><span class="deal">HVAC retrofit (warehouse 2)<div class="sub">Facilities · 5 quotes</div></span><span class="dots">—</span><span class="dots">—</span><span class="dots">—</span><span><span class="qmk-stage review">In review</span></span></div>
+                          <div class="qmk-tr"><span class="deal">Beams · Q4 paper supply<div class="sub">Ops · 4 quotes</div></span><span>Cascade Paper</span><span class="price">$1,240</span><span class="lt">3d</span><span><span class="qmk-stage awarded">Awarded</span></span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>02 · Deals dashboard</b>The action queue. One inbox for every quote, four numbers that matter, no spreadsheet.</div>
+              </div>
+
+              <div class="mock-cell">
+                <div class="browser-frame">
+                  <div class="browser-bar">
+                    <span class="browser-dots"><span></span><span></span><span></span></span>
+                    <div class="browser-url"><span class="lock">●</span>app.quotestack.com/deals/47/approve</div>
+                  </div>
+                  <div class="browser-screen">
+                    <div class="qmk-app-h">
+                      <div class="eyebrow">Awaiting your approval</div>
+                      <div class="title">
+                        <h4>Steel beams · Q3 — recommend Nimbus Metals</h4>
+                        <div class="ctrl">
+                          <span class="qmk-btn reject">Reject</span>
+                          <span class="qmk-btn req">Request changes</span>
+                          <span class="qmk-btn primary">Approve</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="qmk-app-body">
+                      <div class="ctx">Selected because it balances <b>$18,200</b> with a <b>12-day</b> lead time and standard payment terms. 3% above lowest bid, 9 days faster than the cheapest.</div>
+                      <div class="qmk-quotes">
+                        <div class="qmk-quote win">
+                          <div class="qmk-quote-h"><span class="sn">Nimbus Metals</span><span class="tag">Best value</span></div>
+                          <div class="qmk-quote-row"><span class="l">Total</span><span class="r pr">$18,200</span></div>
+                          <div class="qmk-quote-row"><span class="l">Lead time</span><span class="r">12 days</span></div>
+                          <div class="qmk-quote-row"><span class="l">Score</span><span class="r">9.4 / 10</span></div>
+                          <div class="qmk-quote-sub">Submitted by Maya Chen · Apr 19</div>
+                        </div>
+                        <div class="qmk-quote">
+                          <div class="qmk-quote-h"><span class="sn">Forge &amp; Hammer</span><span class="tag">Lowest cost</span></div>
+                          <div class="qmk-quote-row"><span class="l">Total</span><span class="r">$17,560</span></div>
+                          <div class="qmk-quote-row"><span class="l">Lead time</span><span class="r">21 days</span></div>
+                          <div class="qmk-quote-row"><span class="l">Score</span><span class="r">6.6 / 10</span></div>
+                          <div class="qmk-quote-sub">Submitted by David Park · Apr 20</div>
+                        </div>
+                        <div class="qmk-quote">
+                          <div class="qmk-quote-h"><span class="sn">SteelCraft Co.</span><span class="tag">Fastest lead</span></div>
+                          <div class="qmk-quote-row"><span class="l">Total</span><span class="r">$20,800</span></div>
+                          <div class="qmk-quote-row"><span class="l">Lead time</span><span class="r">9 days</span></div>
+                          <div class="qmk-quote-row"><span class="l">Score</span><span class="r">8.1 / 10</span></div>
+                          <div class="qmk-quote-sub">Submitted by David Park · Apr 17</div>
+                        </div>
+                      </div>
+                      <div class="qmk-note">
+                        <div class="l">Approval note (optional)</div>
+                        <div class="body">Approved — proceed with Nimbus Metals. Confirm payment terms NET-30 in PO.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>03 · The decision moment</b>Three quotes side-by-side, one rationale, one approval. The whole job in one screen.</div>
+              </div>
+
+            </div>
+          </div>
+
           <div class="project-meta">
             <div class="meta-block">
               <div class="ml">The problem</div>
@@ -1402,6 +2488,133 @@
                   <span class="rl-chip">3 visits this week</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="mock-strip" aria-label="Rallio live product screens">
+            <div class="mock-strip-head">
+              <div class="ml"><b>Live product</b> · 3 screens</div>
+              <div class="mr">rallio · iOS</div>
+            </div>
+            <div class="mock-row">
+
+              <div class="mock-cell">
+                <div class="phone-frame">
+                  <div class="phone-screen">
+                    <div class="phone-bar">
+                      <span>9:41</span>
+                      <span class="phone-bar-r"><span class="pbr-dots">••••</span><span class="pbr-batt"></span></span>
+                    </div>
+                    <div class="phone-nav"><span>← discover</span><span class="on">profile</span></div>
+                    <div class="phone-content">
+                      <div class="rmk-id-row">
+                        <div class="rmk-avatar">m</div>
+                        <div>
+                          <div class="rmk-name">Maya Chen</div>
+                          <div class="rmk-handle">@mayachen · Ossington, Toronto</div>
+                        </div>
+                      </div>
+                      <div class="rmk-quote">"if i sent you here, you owe me a coffee."</div>
+                      <div class="rmk-section-l">BADGES · 3 OF 4</div>
+                      <div class="rmk-badges">
+                        <div class="rmk-badge founder"><span class="dot"></span><div class="ttl">Founding Supporter</div><div class="sub">#37 of 100</div></div>
+                        <div class="rmk-badge guide"><span class="dot"></span><div class="ttl">Local Guide</div><div class="sub">3 visits credited</div></div>
+                        <div class="rmk-badge champ"><span class="dot"></span><div class="ttl">Neighborhood Champion</div><div class="sub">ossington</div></div>
+                      </div>
+                      <div class="rmk-section-l">YOUR TASTE THIS MONTH</div>
+                      <div class="rmk-receipt">
+                        <div class="rmk-receipt-h">RALLIO RECEIPT — APR '26</div>
+                        <div class="rmk-receipt-row"><span class="l">Bang Bang Ice Cream</span><span class="r">14 clicks sent</span></div>
+                        <div class="rmk-receipt-row"><span class="l">Bar Isabel</span><span class="r">9 visits credited</span></div>
+                        <div class="rmk-receipt-row"><span class="l">Sunline Cafe</span><span class="r">6 clicks sent</span></div>
+                        <div class="rmk-receipt-row"><span class="l">Bar Raval</span><span class="r">4 visits credited</span></div>
+                        <div class="rmk-receipt-total"><span>TOTAL</span><span>33 sent · 4 spots</span></div>
+                        <div class="rmk-receipt-earn">earned: neighborhood champion ✓</div>
+                      </div>
+                    </div>
+                    <div class="phone-tabs">
+                      <span>discover</span><span>following</span><span>post</span><span class="on">profile</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>01 · Profile + receipt</b>Recommendations as legible work. The receipt earns the badge — supporters get visible credit.</div>
+              </div>
+
+              <div class="mock-cell">
+                <div class="phone-frame">
+                  <div class="phone-screen">
+                    <div class="phone-bar">
+                      <span>9:41</span>
+                      <span class="phone-bar-r"><span class="pbr-dots">••••</span><span class="pbr-batt"></span></span>
+                    </div>
+                    <div class="phone-content" style="padding: 0;">
+                      <div class="rmk-postbar">
+                        <div class="pb-av">r</div>
+                        <div>
+                          <div class="pb-nm">rallio</div>
+                          <div class="pb-loc">Ossington, Toronto</div>
+                        </div>
+                        <div class="pb-more">⋯</div>
+                      </div>
+                      <div style="padding: 0 16px;">
+                        <div class="rmk-cafe-tag"><span class="dot"></span>COMMUNITY-ADDED · 1/5 OWNERS</div>
+                        <div class="rmk-cafe-stack">
+                          <div class="rmk-cafe-shade"></div>
+                          <div class="rmk-cafe-card">
+                            <div class="nm">Sunline Cafe</div>
+                            <div class="ad">Ossington · cafe · 626 Dundas St W</div>
+                            <div class="rmk-cafe-stats">
+                              <div><div class="v">14</div><div class="l">POSTS</div></div>
+                              <div><div class="v">42</div><div class="l">SUPPORTERS</div></div>
+                              <div><div class="v">218</div><div class="l">VISITS</div></div>
+                            </div>
+                            <div class="rmk-cta-pill">Own this business? Claim it<span>→</span></div>
+                          </div>
+                        </div>
+                        <div style="font-size: 10px; color: #d9cfbe; margin-bottom: 10px; line-height: 1.4;">your customers are already <em style="color: #82796d; font-style: italic;">building your profile.</em></div>
+                        <div class="rmk-postfoot"><span>♡</span><span>○</span><span>↗</span><span>⬚</span></div>
+                        <div class="rmk-postcap"><b>rallio</b> Sunline Cafe is already on rallio — 42 regulars have posted. the owner hasn't claimed it yet.</div>
+                      </div>
+                    </div>
+                    <div class="phone-tabs">
+                      <span class="on">discover</span><span>following</span><span>post</span><span>profile</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>02 · Community-added card</b>Profiles built by regulars before owners ever sign up. Distribution before acquisition.</div>
+              </div>
+
+              <div class="mock-cell">
+                <div class="phone-frame">
+                  <div class="phone-screen">
+                    <div class="phone-bar">
+                      <span>9:41</span>
+                      <span class="phone-bar-r"><span class="pbr-dots">••••</span><span class="pbr-batt"></span></span>
+                    </div>
+                    <div class="phone-nav"><span>← back</span><span>CLAIM · 1 OF 3</span></div>
+                    <div class="phone-content">
+                      <h4 class="rmk-claim-h">your customers already started your profile.</h4>
+                      <div class="rmk-claim-sub">here's what regulars have built so far for <b>Sunline Cafe</b>.</div>
+                      <div class="rmk-claim-card">
+                        <div class="rmk-claim-flag"><span class="dot"></span>COMMUNITY-ADDED · UNCLAIMED</div>
+                        <div class="nm">Sunline Cafe</div>
+                        <div class="ad">626 Dundas St W · Ossington · cafe</div>
+                        <div class="rmk-claim-stats">
+                          <div><div class="v">14</div><div class="l">APPROVED POSTS</div></div>
+                          <div><div class="v">42</div><div class="l">SUPPORTERS</div></div>
+                          <div><div class="v">218</div><div class="l">VISITS</div></div>
+                        </div>
+                        <div class="rmk-claim-q">"the cortado is the only one in ossington i'd actually pay $6 for."</div>
+                        <div class="rmk-claim-att">— @mayachen · 3 weeks ago · 8 likes</div>
+                      </div>
+                      <div class="rmk-claim-btn">claim this profile</div>
+                      <div class="rmk-claim-foot">free · takes a minute · one note proves it's you</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>03 · The claim moment</b>Owners arrive to find their profile already populated. The pitch is proof, not promise.</div>
+              </div>
+
             </div>
           </div>
 
