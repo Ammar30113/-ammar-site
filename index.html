@@ -881,6 +881,165 @@
     margin-top: 7px;
   }
 
+  /* ---------- Signal mock — dark-mode urge-reset app ---------- */
+  .phone-screen.sig { background: #0a0d0f; color: #e8efee; }
+  .phone-screen.sig .phone-bar { color: #e8efee; }
+  .phone-screen.sig .phone-bar-r .pbr-batt { border-color: #e8efee; }
+  .phone-screen.sig .phone-bar-r .pbr-batt::after { background: #e8efee; }
+  .phone-screen.sig .phone-nav { color: #7c8a87; }
+  .phone-screen.sig .phone-nav .on { color: #7fd1c4; }
+  .phone-screen.sig .phone-tabs {
+    background: linear-gradient(180deg, rgba(10,13,15,0), rgba(10,13,15,.94) 55%);
+    color: #5e6b68;
+  }
+  .phone-screen.sig .phone-tabs .on { color: #7fd1c4; }
+
+  .smk-eyebrow {
+    font-family: var(--mono);
+    font-size: 8px;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: #5e6b68;
+    margin-bottom: 8px;
+  }
+  .smk-h {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 500;
+    color: #eef4f2;
+    letter-spacing: -.01em;
+    line-height: 1.1;
+    margin: 0 0 5px;
+  }
+  .smk-sub {
+    font-size: 9.5px;
+    color: #8a9794;
+    line-height: 1.4;
+    margin-bottom: 15px;
+  }
+  .smk-sub b { color: #cdd6d3; font-weight: 500; }
+  .smk-label {
+    font-family: var(--mono);
+    font-size: 7.5px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #5e6b68;
+    margin-bottom: 8px;
+  }
+
+  /* SOS reset — timer + protocol */
+  .smk-timer { display: grid; place-items: center; margin: 4px 0 16px; }
+  .smk-ring {
+    width: 122px; height: 122px; border-radius: 50%;
+    background: conic-gradient(#5fb3a9 0 77%, #1b2426 77% 100%);
+    display: grid; place-items: center;
+    position: relative;
+    box-shadow: 0 0 0 1px #1b2426, 0 0 36px -10px rgba(95,179,169,.45);
+  }
+  .smk-ring::before {
+    content: ""; position: absolute; inset: 9px;
+    border-radius: 50%; background: #0a0d0f;
+  }
+  .smk-ring-c { position: relative; text-align: center; }
+  .smk-ring-t {
+    font-family: var(--serif);
+    font-size: 29px; color: #eef4f2; line-height: 1;
+    letter-spacing: -.01em;
+    font-variant-numeric: tabular-nums;
+  }
+  .smk-ring-l {
+    font-family: var(--mono);
+    font-size: 6.5px; letter-spacing: .18em; text-transform: uppercase;
+    color: #5fb3a9; margin-top: 6px;
+  }
+  .smk-steps { margin-bottom: 12px; }
+  .smk-step {
+    display: grid; grid-template-columns: 17px 1fr auto; gap: 9px;
+    align-items: start;
+    padding: 7px 0;
+    border-top: 1px solid #161e20;
+  }
+  .smk-step:first-child { border-top: none; }
+  .smk-step .n {
+    width: 16px; height: 16px; border-radius: 50%;
+    border: 1px solid #2a3638;
+    font-family: var(--mono); font-size: 8px;
+    display: grid; place-items: center;
+    color: #5e6b68;
+    margin-top: 1px;
+  }
+  .smk-step.done .n { background: #5fb3a9; border-color: #5fb3a9; color: #07100e; }
+  .smk-step.now .n { border-color: #7fd1c4; color: #7fd1c4; box-shadow: 0 0 0 3px rgba(127,209,196,.12); }
+  .smk-step .lbl { font-size: 11px; color: #aeb9b6; line-height: 1.25; }
+  .smk-step.done .lbl { color: #7c8a87; }
+  .smk-step.now .lbl { color: #eef4f2; }
+  .smk-step .sub { font-size: 8.5px; color: #8a9794; line-height: 1.4; margin-top: 3px; }
+  .smk-step .tag {
+    font-family: var(--mono); font-size: 7px; letter-spacing: .12em;
+    text-transform: uppercase; color: #5e6b68; margin-top: 3px;
+  }
+  .smk-step.now .tag { color: #7fd1c4; }
+  .smk-reassure {
+    font-family: var(--serif); font-style: italic;
+    font-size: 10px; color: #8a9794; line-height: 1.4;
+    text-align: center;
+    padding-top: 11px; border-top: 1px solid #161e20;
+  }
+
+  /* Check-in — chips + escalation meter */
+  .smk-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 15px; }
+  .smk-chip {
+    font-size: 9px; padding: 4px 9px; border-radius: 999px;
+    border: 1px solid #223032; color: #8a9794; background: #0e1417;
+  }
+  .smk-chip.on { border-color: #5fb3a9; color: #d8efea; background: rgba(95,179,169,.12); }
+  .smk-chip.warm.on { border-color: #d98f63; color: #f0d6c4; background: rgba(217,143,99,.13); }
+  .smk-meter { display: flex; gap: 3px; margin-bottom: 7px; }
+  .smk-meter span { flex: 1; height: 6px; border-radius: 2px; background: #1b2426; }
+  .smk-meter span.f { background: #5fb3a9; }
+  .smk-meter span.hot { background: #d98f63; }
+  .smk-meter-row {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 7.5px; color: #5e6b68;
+    letter-spacing: .08em; margin-bottom: 18px;
+  }
+  .smk-meter-row b { color: #e0a07a; font-weight: 500; }
+  .smk-cta {
+    background: #5fb3a9; color: #06120f; text-align: center;
+    padding: 11px 0; border-radius: 999px;
+    font-size: 10.5px; font-weight: 600;
+  }
+
+  /* Pattern map — stats, bars, heat strip */
+  .smk-stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 15px; }
+  .smk-stat { background: #0e1417; border: 1px solid #1b2426; border-radius: 6px; padding: 8px 9px 9px; }
+  .smk-stat .v { font-family: var(--serif); font-size: 18px; color: #7fd1c4; line-height: 1; font-weight: 500; }
+  .smk-stat .v .u { font-size: 10px; color: #8a9794; margin-left: 1px; }
+  .smk-stat .l { font-family: var(--mono); font-size: 6.5px; letter-spacing: .14em; text-transform: uppercase; color: #5e6b68; margin-top: 5px; }
+  .smk-bars { display: grid; gap: 8px; margin-bottom: 16px; }
+  .smk-bar { display: grid; grid-template-columns: 60px 1fr 26px; gap: 8px; align-items: center; font-size: 9px; color: #aeb9b6; }
+  .smk-bar .track { height: 6px; background: #161e20; border-radius: 3px; overflow: hidden; }
+  .smk-bar .fill { height: 100%; background: linear-gradient(90deg, #46807a, #5fb3a9); border-radius: 3px; }
+  .smk-bar .pct { font-family: var(--mono); font-size: 8px; color: #7c8a87; text-align: right; }
+  .smk-heat { display: flex; gap: 2px; margin-bottom: 5px; }
+  .smk-heat span { flex: 1; height: 16px; border-radius: 2px; background: #141b1d; }
+  .smk-heat span.h1 { background: rgba(217,143,99,.25); }
+  .smk-heat span.h2 { background: rgba(217,143,99,.52); }
+  .smk-heat span.h3 { background: #d98f63; }
+  .smk-heat-l {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 6.5px; color: #5e6b68;
+    letter-spacing: .08em; margin-bottom: 16px;
+  }
+  .smk-work { display: grid; gap: 6px; }
+  .smk-work-row {
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 9.5px; color: #cdd6d3;
+    padding: 7px 10px; background: #0e1417;
+    border: 1px solid #1b2426; border-radius: 5px;
+  }
+  .smk-work-row .r { font-family: var(--mono); font-size: 8px; color: #7fd1c4; }
+
   /* Browser chrome */
   .browser-frame {
     width: 520px;
@@ -1954,11 +2113,200 @@
           </div>
         </article>
 
-        <!-- SCOUTBOT-301 -->
+        <!-- SIGNAL -->
         <article class="project" data-reveal>
           <div class="project-head">
             <div>
               <div class="project-id">PROJECT · 003</div>
+              <h3>Signal — Urge Reset</h3>
+              <div class="role-line"><em>Private behavioral urge-interruption system · iOS app</em></div>
+            </div>
+            <span class="project-status live">Live on iOS</span>
+          </div>
+          <p class="desc">
+            A private, dark-mode tool for the ten-minute window between an urge and acting on it. Instead of blocking or shaming, Signal interrupts the loop — name the cue, choose an action, move, reflect — and quietly builds a personal pattern map over time. No accounts, no analytics, nothing leaves the device. Live on the App Store for iOS.
+          </p>
+          <div class="project-actions">
+            <a class="btn primary" href="https://apps.apple.com/us/app/signal-urge-reset/id6776899029" target="_blank" rel="noopener" aria-label="Download Signal — Urge Reset on the App Store">
+              <svg viewBox="0 0 384 512" aria-hidden="true" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+              Download on the App Store ↗
+            </a>
+            <a class="btn" href="https://github.com/Ammar30113/Signal" target="_blank" rel="noopener" aria-label="View Signal source on GitHub">
+              <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              Source on GitHub ↗
+            </a>
+          </div>
+
+          <div class="mock-strip" aria-label="Signal live product screens">
+            <div class="mock-strip-head">
+              <div class="ml"><b>Live product</b> · 3 screens</div>
+              <div class="mr">signal · iOS</div>
+            </div>
+            <div class="mock-row">
+
+              <div class="mock-cell">
+                <div class="phone-frame">
+                  <div class="phone-screen sig">
+                    <div class="phone-bar">
+                      <span>9:41</span>
+                      <span class="phone-bar-r"><span class="pbr-dots">••••</span><span class="pbr-batt"></span></span>
+                    </div>
+                    <div class="phone-nav"><span>← home</span><span class="on">SOS · ACTIVE</span></div>
+                    <div class="phone-content">
+                      <div class="smk-timer">
+                        <div class="smk-ring">
+                          <div class="smk-ring-c">
+                            <div class="smk-ring-t">07:42</div>
+                            <div class="smk-ring-l">reset running</div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="smk-steps">
+                        <div class="smk-step done">
+                          <span class="n">✓</span>
+                          <div><div class="lbl">name the cue</div></div>
+                          <span class="tag">done</span>
+                        </div>
+                        <div class="smk-step done">
+                          <span class="n">✓</span>
+                          <div><div class="lbl">choose an action</div></div>
+                          <span class="tag">done</span>
+                        </div>
+                        <div class="smk-step now">
+                          <span class="n">3</span>
+                          <div>
+                            <div class="lbl">move your body</div>
+                            <div class="sub">90 seconds — stand up, ten slow breaths, change rooms.</div>
+                          </div>
+                          <span class="tag">now</span>
+                        </div>
+                        <div class="smk-step">
+                          <span class="n">4</span>
+                          <div><div class="lbl">reflect &amp; log</div></div>
+                          <span class="tag">next</span>
+                        </div>
+                      </div>
+                      <div class="smk-reassure">"the urge passes whether you act on it or not."</div>
+                    </div>
+                    <div class="phone-tabs">
+                      <span class="on">reset</span><span>check-in</span><span>patterns</span><span>you</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>01 · The 10-minute reset</b>The panic button. A timed interruption with four steps and haptics — name, choose, move, reflect — not a blocker.</div>
+              </div>
+
+              <div class="mock-cell">
+                <div class="phone-frame">
+                  <div class="phone-screen sig">
+                    <div class="phone-bar">
+                      <span>9:41</span>
+                      <span class="phone-bar-r"><span class="pbr-dots">••••</span><span class="pbr-batt"></span></span>
+                    </div>
+                    <div class="phone-nav"><span>← home</span><span>CHECK-IN</span></div>
+                    <div class="phone-content">
+                      <div class="smk-eyebrow">RIGHT NOW · 11:48 PM</div>
+                      <h4 class="smk-h">what's the state?</h4>
+                      <div class="smk-sub">name it before it names you. no account — stored on <b>this device only</b>.</div>
+
+                      <div class="smk-label">MOOD</div>
+                      <div class="smk-chips">
+                        <span class="smk-chip">calm</span>
+                        <span class="smk-chip warm on">restless</span>
+                        <span class="smk-chip">low</span>
+                        <span class="smk-chip">anxious</span>
+                        <span class="smk-chip">numb</span>
+                      </div>
+
+                      <div class="smk-label">TRIGGER</div>
+                      <div class="smk-chips">
+                        <span class="smk-chip on">late night</span>
+                        <span class="smk-chip on">bored</span>
+                        <span class="smk-chip">stress</span>
+                        <span class="smk-chip">alone</span>
+                        <span class="smk-chip">tired</span>
+                      </div>
+
+                      <div class="smk-label">ESCALATION</div>
+                      <div class="smk-meter">
+                        <span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="hot"></span><span class="hot"></span><span></span><span></span><span></span>
+                      </div>
+                      <div class="smk-meter-row"><span>low</span><span><b>7 / 10 · climbing</b></span><span>peak</span></div>
+
+                      <div class="smk-cta">start 10-minute reset</div>
+                    </div>
+                    <div class="phone-tabs">
+                      <span>reset</span><span class="on">check-in</span><span>patterns</span><span>you</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>02 · Check-in</b>Classify mood, trigger, and escalation in three taps. The data feeds the map — and the reset is one tap away.</div>
+              </div>
+
+              <div class="mock-cell">
+                <div class="phone-frame">
+                  <div class="phone-screen sig">
+                    <div class="phone-bar">
+                      <span>9:41</span>
+                      <span class="phone-bar-r"><span class="pbr-dots">••••</span><span class="pbr-batt"></span></span>
+                    </div>
+                    <div class="phone-nav"><span>← home</span><span class="on">PATTERN MAP</span></div>
+                    <div class="phone-content">
+                      <div class="smk-eyebrow">LAST 30 DAYS · ON-DEVICE</div>
+                      <div class="smk-stat-row">
+                        <div class="smk-stat"><div class="v">27</div><div class="l">resets</div></div>
+                        <div class="smk-stat"><div class="v">19</div><div class="l">redirected</div></div>
+                        <div class="smk-stat"><div class="v">70<span class="u">%</span></div><div class="l">interrupted</div></div>
+                      </div>
+
+                      <div class="smk-label">TOP TRIGGERS</div>
+                      <div class="smk-bars">
+                        <div class="smk-bar"><span>late night</span><span class="track"><span class="fill" style="width:84%"></span></span><span class="pct">38%</span></div>
+                        <div class="smk-bar"><span>stress</span><span class="track"><span class="fill" style="width:56%"></span></span><span class="pct">24%</span></div>
+                        <div class="smk-bar"><span>boredom</span><span class="track"><span class="fill" style="width:42%"></span></span><span class="pct">19%</span></div>
+                        <div class="smk-bar"><span>loneliness</span><span class="track"><span class="fill" style="width:28%"></span></span><span class="pct">12%</span></div>
+                      </div>
+
+                      <div class="smk-label">DANGER WINDOW</div>
+                      <div class="smk-heat">
+                        <span></span><span></span><span class="h1"></span><span class="h2"></span><span class="h3"></span><span class="h3"></span><span class="h2"></span><span class="h1"></span>
+                      </div>
+                      <div class="smk-heat-l"><span>6pm</span><span>9pm–1am peak</span><span>4am</span></div>
+
+                      <div class="smk-label">WHAT'S WORKING</div>
+                      <div class="smk-work">
+                        <div class="smk-work-row"><span>walk + cold water</span><span class="r">12 redirects</span></div>
+                        <div class="smk-work-row"><span>call someone</span><span class="r">5 redirects</span></div>
+                      </div>
+                    </div>
+                    <div class="phone-tabs">
+                      <span>reset</span><span>check-in</span><span class="on">patterns</span><span>you</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-caption"><b>03 · Pattern map</b>Resets compound into signal: top triggers, danger windows, and the redirects that actually work for you.</div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="project-meta">
+            <div class="meta-block">
+              <div class="ml">The premise</div>
+              <div class="mv">Blockers, surveillance, and streak-shame all miss the moment that matters — the gap between urge and action. Signal works that gap with a timed interruption, then turns each reset into a pattern you can see.</div>
+            </div>
+            <div class="meta-block">
+              <div class="ml">Built private-first</div>
+              <div class="mv">No accounts, no analytics, no screenshots — every check-in and session stays on-device. Core panic tools are free, permanently: the principle is to never monetize panic.</div>
+            </div>
+          </div>
+        </article>
+
+        <!-- SCOUTBOT-301 -->
+        <article class="project" data-reveal>
+          <div class="project-head">
+            <div>
+              <div class="project-id">PROJECT · 004</div>
               <h3>ScoutBot-301</h3>
               <div class="role-line"><em>Market-signal &amp; decision-support system · Jul 2025</em></div>
             </div>
@@ -1983,7 +2331,7 @@
         <article class="project" data-reveal>
           <div class="project-head">
             <div>
-              <div class="project-id">PROJECT · 004</div>
+              <div class="project-id">PROJECT · 005</div>
               <h3>ContentOS</h3>
               <div class="role-line"><em>Personal AI workflow &amp; content operations system · Apr 2026</em></div>
             </div>
